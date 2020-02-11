@@ -214,6 +214,7 @@ class TransactionListItem extends StatelessWidget {
                                     _vm.community.token.symbol,
                                     style: TextStyle(
                                       fontSize: 13,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.left,
