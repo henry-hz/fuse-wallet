@@ -1,3 +1,40 @@
+# Wepy Wallet
+
+This repo is mirroring the [fuse-wallet](http://github.com/fuseio/fuse-wallet)
+repository. Follow the instructions bellow to be able to pull changes from
+fuse-wallet and at the same time, keeping the differences.
+The mirror strategy is because Github does not allow the creation of private forks for public repositories.
+
+The correct way of creating a private frok by duplicating the repo is documented [here](https://help.github.com/articles/duplicating-a-repository/).
+
+ 1. You can now clone your `wepy-wallet` repository on your machine (in my case in the `code` folder).
+    ```bash
+    cd ~/code
+    git clone git@github.com:henry-hz/wepy-wallet.git
+    ```
+ 2. If you want, add the original repo as remote to fetch (potential) future changes.
+    Make sure you also disable push on the remote (as you are not allowed to push to it anyway).
+    ```bash
+    git remote add upstream git@github.com:fuseio/fuse-wallet.git
+    git remote set-url --push upstream DISABLE
+    ```
+    You can list all your remotes with `git remote -v`. You should see:
+    ```
+    origin  git@github.com:henry-hz/wepy-wallet.git (fetch)
+    origin  git@github.com:henry-hz/wepy-wallet.git (push)
+    upstream        git@github.com:fuseio/fuse-wallet (fetch)
+    upstream        DISABLE (push)
+    ```
+    > When you push, do so on `origin` with `git push origin`.
+   
+    > When you want to pull changes from `upstream` you can just fetch the remote and rebase on top of your work.
+    ```bash
+      git fetch upstream
+      git rebase upstream/master
+      ```
+      And solve the conflicts if any
+
+
 # Fuse Wallet
 
 The Fuse Wallet is a cross platform Ethereum wallet written in Dart and built on [Flutter](https://flutter.dev/). It's runninng on the Fuse network, but can be plugged into any EVM compatible blockchain.
