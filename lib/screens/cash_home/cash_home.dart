@@ -74,9 +74,9 @@ void onChange(CashWalletViewModel viewModel, BuildContext context,
 class CashHomeScreen extends StatelessWidget {
   CashHomeScreen();
 
-  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
-    CustomTheme.instanceOf(buildContext).changeTheme(key);
-  }
+  // void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
+  //   CustomTheme.instanceOf(buildContext).changeTheme(key);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class CashHomeScreen extends StatelessWidget {
           onChange(viewModel, context, initial: true);
         },
         onWillChange: (viewModel) async {
-          updateTheme(viewModel, _changeTheme, context);
+          // updateTheme(viewModel, _changeTheme, context);
           onChange(viewModel, context);
         },
         builder: (_, viewModel) {

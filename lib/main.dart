@@ -26,7 +26,7 @@ void main() async {
   ]).then((_) async {
     runZoned<Future<void>>(
       () async => runApp(CustomTheme(
-        initialThemeKey: MyThemeKeys.DEFAULT,
+        initialThemeKey: MyThemeKeys.PAYWISE,
         child: new MyApp(
             store: await AppFactory().getStore(),
         ),
