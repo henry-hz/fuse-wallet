@@ -26,7 +26,7 @@ void main() async {
   ]).then((_) async {
     runZoned<Future<void>>(
       () async => runApp(CustomTheme(
-        initialThemeKey: MyThemeKeys.PAYWISE,
+        initialThemeKey: MyThemeKeys.WEPY,
         child: new MyApp(
             store: await AppFactory().getStore(),
         ),
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
           child: new StoreProvider<AppState>(
             store: store,
             child: new MaterialApp(
-              title: 'Fuse Cash',
+              title: 'Wepy Wallet',
               initialRoute: '/',
               routes: getRoutes(),
               theme: CustomTheme.of(context),

@@ -15,14 +15,14 @@ The correct way of creating a private frok by duplicating the repo is documented
  2. If you want, add the original repo as remote to fetch (potential) future changes.
     Make sure you also disable push on the remote (as you are not allowed to push to it anyway).
     ```bash
-    git remote add upstream git@github.com:fuseio/fuse-wallet.git
+    git remote add upstream https://github.com/fuseio/fuse-wallet.git
     git remote set-url --push upstream DISABLE
     ```
     You can list all your remotes with `git remote -v`. You should see:
     ```
     origin  git@github.com:henry-hz/wepy-wallet.git (fetch)
     origin  git@github.com:henry-hz/wepy-wallet.git (push)
-    upstream        git@github.com:fuseio/fuse-wallet (fetch)
+    upstream        https://github.com/fuseio/fuse-wallet.git (fetch)
     upstream        DISABLE (push)
     ```
     > When you push, do so on `origin` with `git push origin`.

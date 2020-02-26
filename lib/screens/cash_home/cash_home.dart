@@ -1,8 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fusecash/themes/app_theme.dart';
-import 'package:fusecash/themes/custom_theme.dart';
 import 'package:fusecash/utils/contacts.dart';
 import 'package:fusecash/utils/forks.dart';
 import 'package:fusecash/widgets/main_scaffold2.dart';
@@ -11,12 +9,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'cash_header.dart';
 import 'cash_transactions.dart';
 import 'package:fusecash/models/views/cash_wallet.dart';
-
-bool isDefaultCommunity(String communityAddress) {
-  return DotEnv().env['DEFAULT_COMMUNITY_CONTRACT_ADDRESS'] != null &&
-      DotEnv().env['DEFAULT_COMMUNITY_CONTRACT_ADDRESS'].toLowerCase() ==
-          communityAddress.toLowerCase();
-}
 
 void updateTheme(CashWalletViewModel viewModel, Function _changeTheme,
     BuildContext context) {
