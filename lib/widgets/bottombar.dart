@@ -56,33 +56,18 @@ Widget bottomBar(BuildContext context) {
                     redirect(context, '/SendContact');
                   }
                 }),
-                isDefaultCommunity(viewModel.community.address)
-                    ? bottomBarItem(
-                        isCurrentRoute(context, '/DaiPoints')
-                            ? "daipoints_selected.svg"
-                            : "daipoints.svg",
-                        I18n.of(context).dai_points, () {
-                        if (isHomePage) {
-                          redirect(context, '/DaiPoints');
-                        } else {
-                          Navigator.popUntil(
-                              context, ModalRoute.withName('/Cash'));
-                          redirect(context, '/DaiPoints');
-                        }
-                      })
-                    : bottomBarItem(
-                        isCurrentRoute(context, '/Buy')
-                            ? "buy_selected.svg"
-                            : "buy.svg",
-                        I18n.of(context).buy, () {
-                        if (isHomePage) {
-                          redirect(context, '/Buy');
-                        } else {
-                          Navigator.popUntil(
-                              context, ModalRoute.withName('/Cash'));
-                          redirect(context, '/Buy');
-                        }
-                      }),
+                bottomBarItem(
+                    isCurrentRoute(context, '/Buy')
+                        ? "buy_selected.svg"
+                        : "buy.svg",
+                    I18n.of(context).buy, () {
+                  if (isHomePage) {
+                    redirect(context, '/Buy');
+                  } else {
+                    Navigator.popUntil(context, ModalRoute.withName('/Cash'));
+                    redirect(context, '/Buy');
+                  }
+                }),
                 bottomBarItem(
                     isCurrentRoute(context, '/Receive')
                         ? "receive_selected.svg"
