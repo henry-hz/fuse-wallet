@@ -5,7 +5,7 @@ import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/app_state.dart';
 import 'package:fusecash/widgets/country_code_picker/country_code_picker.dart';
 import 'package:fusecash/widgets/country_code_picker/country_code.dart';
-import 'package:fusecash/widgets/country_code_picker/country_codes.dart';
+// import 'package:fusecash/widgets/country_code_picker/country_codes.dart';
 import 'package:fusecash/widgets/main_scaffold.dart';
 import 'package:fusecash/widgets/primary_button.dart';
 import 'package:fusecash/widgets/signup_dialog.dart';
@@ -23,28 +23,28 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isPreloading = false;
   bool isvalidPhone = true;
-  CountryCode countryCode = new CountryCode(dialCode: '‎+1');
+  CountryCode countryCode = new CountryCode(dialCode: '+‎‎55', code: 'BR');
 
   @override
   void initState() {
     super.initState();
   }
 
-  _updateCountryCode(Locale myLocale) {
-    if (myLocale.countryCode != null) {
-      Map localeData = codes.firstWhere((Map code) => code['code'] == myLocale.countryCode, orElse: () => null);
-      if (mounted && localeData != null) {
-        setState(() {
-          countryCode = CountryCode(dialCode: localeData['dial_code']);
-        });
-      }
-    }
-  }
+  // _updateCountryCode(Locale myLocale) {
+  //   if (myLocale.countryCode != null) {
+  //     Map localeData = codes.firstWhere((Map code) => code['code'] == myLocale.countryCode, orElse: () => null);
+  //     if (mounted && localeData != null) {
+  //       setState(() {
+  //         countryCode = CountryCode(dialCode: localeData['dial_code']);
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    Locale myLocale = Localizations.localeOf(context);
-    _updateCountryCode(myLocale);
+    // Locale myLocale = Localizations.localeOf(context);
+    // _updateCountryCode(myLocale);
     return MainScaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         withPadding: true,
@@ -133,10 +133,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                   onChanged: (_countryCode) {
                                     countryCode = _countryCode;
                                   },
-                                  initialSelection: myLocale.countryCode,
+                                  initialSelection: countryCode.code,
                                   favorite: [],
                                   showCountryOnly: false,
                                   showFlag: false,
+                                  searchStyle:const TextStyle(color: Colors.black), 
                                   textStyle: const TextStyle(fontSize: 16),
                                   alignLeft: false,
                                 ),

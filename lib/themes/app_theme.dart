@@ -6,9 +6,9 @@ class MyThemes {
   static final ThemeData defaultTheme = getTheme();
 
   static final ThemeData paywiseTheme = getTheme().copyWith(
-      primaryColorLight: const Color(0xFF8AD57F),
-      primaryColorDark: const Color(0xFF1876B5),
-      buttonColor: const Color(0xFF8AD57F),
+      primaryColorLight: const Color(0xFF0B7AD5),
+      primaryColorDark: const Color(0xFF004A86),
+      buttonColor: const Color(0xFF0B7AD5),
       textTheme: TextTheme(
           body1: new TextStyle(color: const Color(0xFF333333)),
           button: new TextStyle(color: Colors.white)));
@@ -28,8 +28,9 @@ class MyThemes {
           button: new TextStyle(color: Colors.white)));
 
   static final ThemeData wepyTheme = getTheme().copyWith(
-      primaryColorLight: const Color(0xFF06DEA4),
-      primaryColorDark: const Color(0xFF1077D8),
+    primaryColorLight: const Color(0xFF0B7AD5),
+      primaryColorDark: const Color(0xFF004A86),
+      buttonColor: const Color(0xFF0B7AD5),
       textTheme: TextTheme(
           body1: new TextStyle(color: const Color(0xFF333333)),
           button: new TextStyle(color: Colors.white)));
@@ -78,7 +79,7 @@ ThemeData getTheme() {
     splashColor: Colors.white,
     textTheme: TextTheme(
         headline: new TextStyle(color: Colors.black),
-        subhead: new TextStyle(color: Colors.black),
+        subhead: new TextStyle(color: Colors.white),
         subtitle: new TextStyle(color: Colors.black),
         display1: new TextStyle(color: const Color(0xFF808080)),
         display2: new TextStyle(color: Colors.black),
