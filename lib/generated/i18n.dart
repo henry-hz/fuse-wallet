@@ -106,8 +106,8 @@ class I18n implements WidgetsLocalizations {
   String get amount => "Amount";
   /// "You got a join bonus!"
   String get join_bonus => "You got a join bonus!";
-  /// "Joining Community"
-  String get joining_community => "Joining Community";
+  /// "Connecting network"
+  String get joining_community => "Connecting network";
   /// "Connected network"
   String get joined_community => "Connected network";
   /// "About"
@@ -718,9 +718,9 @@ class _I18n_br_BR extends I18n {
   /// "ola"
   @override
   String get hi => "ola";
-  /// "Linguaaaa"
+  /// "Lingua"
   @override
-  String get language => "Linguaaaa";
+  String get language => "Lingua";
   /// "Desconectar"
   @override
   String get logout => "Desconectar";

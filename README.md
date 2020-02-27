@@ -36,7 +36,7 @@ The correct way of creating a private frok by duplicating the repo is documented
 
 
 
-# Configuration
+## Configuration
 
 **env_prod**
 
@@ -58,6 +58,12 @@ IPFS_BASE_URL=https://ipfs-proxy.fuse.io/api
 MODE=production
 FORK=true
 ```
+
+**qa env**
+In main.dart file change defaultValue: '.env_prod' to defaultValue: '.env_qa'
+
+you can use any number that ends with 55555
+SMS code is: 111111
 
 # Fuse Wallet
 

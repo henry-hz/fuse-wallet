@@ -812,7 +812,7 @@ ThunkAction joinCommunityCall({dynamic community, dynamic token}) {
       dynamic jobId = response['job']['_id'];
       Transfer transfer = new Transfer(
           type: 'RECEIVE',
-          text: 'Joining ' + community["name"] + ' community',
+          text: 'Connecting to ' + community["name"] + ' network',
           status: 'PENDING',
           jobId: jobId);
 
@@ -835,7 +835,7 @@ ThunkAction joinCommunitySuccessCall(Job job, dynamic fetchedData, Transfer tran
   return (Store store) async {
       Transfer confirmedTx = transfer.copyWith(
       status: 'CONFIRMED',
-      text: 'Joined ' + (community["name"]) + ' community',
+      text: 'Connected to ' + (community["name"]) + ' network',
       txHash: job.data['txHash']);
     store.dispatch(new ReplaceTransaction(transfer, confirmedTx));
 
