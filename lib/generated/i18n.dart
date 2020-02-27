@@ -108,8 +108,8 @@ class I18n implements WidgetsLocalizations {
   String get join_bonus => "You got a join bonus!";
   /// "Joining Community"
   String get joining_community => "Joining Community";
-  /// "Joined Community"
-  String get joined_community => "Joined Community";
+  /// "Connected network"
+  String get joined_community => "Connected network";
   /// "About"
   String get about => "About";
   /// "Version"
@@ -204,8 +204,8 @@ class I18n implements WidgetsLocalizations {
   String get backup_wallet => "Backup";
   /// "Top-up your account"
   String get top_up => "Top-up your account";
-  /// "Buy"
-  String get buy => "Buy";
+  /// "Load"
+  String get buy => "Load";
   /// "DAI points"
   String get dai_points => "DAI points";
   /// "Map"
@@ -718,9 +718,9 @@ class _I18n_br_BR extends I18n {
   /// "ola"
   @override
   String get hi => "ola";
-  /// "Lingua"
+  /// "Linguaaaa"
   @override
-  String get language => "Lingua";
+  String get language => "Linguaaaa";
   /// "Desconectar"
   @override
   String get logout => "Desconectar";

@@ -35,6 +35,30 @@ The correct way of creating a private frok by duplicating the repo is documented
       And solve the conflicts if any
 
 
+
+# Configuration
+
+**env_prod**
+
+```
+This is your community address: https://studio.fuse.io/view/community/0x3A84E05b3128D87FCcB5C5fF3F4d34908981A8d4
+DEFAULT_COMMUNITY_CONTRACT_ADDRESS=0x3A84E05b3128D87FCcB5C5fF3F4d34908981A8d4
+
+This is a contract that handles the joining users and giving them bonus - this is currently one server address for all communities.
+COMMUNITY_MANAGER_CONTRACT_ADDRESS=0xD62FB418895E17b00F0dED62Ae342C340B69c346
+
+This is the same but for sending money - this is where we provide funding for transactions so users wont need to hold Fuse.
+TRANSFER_MANAGER_CONTRACT_ADDRESS=0x667814b1A1953b20dffCF95a899B807fC2373D70 -  
+
+NETWORK_ID=122 
+GRAPH_BASE_URL=https://graph.fuse.io/subgraphs/name/fuseio
+SUB_GRAPH=fuse
+API_BASE_URL=https://studio.fuse.io/api
+IPFS_BASE_URL=https://ipfs-proxy.fuse.io/api
+MODE=production
+FORK=true
+```
+
 # Fuse Wallet
 
 The Fuse Wallet is a cross platform Ethereum wallet written in Dart and built on [Flutter](https://flutter.dev/). It's runninng on the Fuse network, but can be plugged into any EVM compatible blockchain.
