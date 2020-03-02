@@ -17,7 +17,7 @@ import 'package:sentry/sentry.dart';
 
 void main() async {
   String configFile = String.fromEnvironment('CONFIG_FILE', defaultValue:
-      '.env_qa');
+      '.env_prod');
   print('loading $configFile config file');
   await DotEnv().load(configFile);
   SentryClient sentry = await AppFactory().getSentry();
