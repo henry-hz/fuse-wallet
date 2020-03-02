@@ -1,3 +1,7 @@
+# keys
+deploy/dev/ios.key
+deploy/ios.key
+
 # Miscellaneous
 *.class
 *.log
