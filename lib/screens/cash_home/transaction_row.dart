@@ -5,6 +5,7 @@ import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/transaction.dart';
 import 'package:fusecash/models/transfer.dart';
 import 'package:fusecash/models/views/cash_wallet.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/utils/transaction_row.dart';
 import 'package:fusecash/screens/cash_home/transaction_details.dart';
 import 'package:fusecash/utils/format.dart';
@@ -114,7 +115,7 @@ class TransactionListItem extends StatelessWidget {
                                   ? 'GenerateWallet'
                                   : transfer.isPending()
                                       ? "contactSent"
-                                      : "transaction" + transfer.txHash,
+                                      : "transaction" + (transfer?.jobId ?? transfer.txHash),
                             ),
                             transfer.isPending()
                                 ? Container(
@@ -180,14 +181,28 @@ class TransactionListItem extends StatelessWidget {
                   flex: 3,
                   child: Container(
                     width: 100,
-                    child: Column(
-                        mainAxisAlignment: transfer.isPending()
-                            ? MainAxisAlignment.start
-                            : MainAxisAlignment.center,
-                        crossAxisAlignment: transfer.isPending()
-                            ? CrossAxisAlignment.end
-                            : CrossAxisAlignment.center,
-                        children: rightColumn),
+                    child: transfer.isFailed()
+                        ? InkWell(
+                            onTap: () {
+                              // TODO - Resend fail job
+                            },
+                            child: Column(
+                                mainAxisAlignment: transfer.isPending()
+                                    ? MainAxisAlignment.start
+                                    : MainAxisAlignment.center,
+                                crossAxisAlignment: transfer.isPending()
+                                    ? CrossAxisAlignment.end
+                                    : CrossAxisAlignment.center,
+                                children: rightColumn),
+                          )
+                        : Column(
+                            mainAxisAlignment: transfer.isPending()
+                                ? MainAxisAlignment.start
+                                : MainAxisAlignment.center,
+                            crossAxisAlignment: transfer.isPending()
+                                ? CrossAxisAlignment.end
+                                : CrossAxisAlignment.center,
+                            children: rightColumn),
                   ))
             ],
           ),
@@ -196,7 +211,7 @@ class TransactionListItem extends StatelessWidget {
               return;
             }
             if (!transfer.isGenerateWallet() || !transfer.isJoinCommunity()) {
-              Navigator.pushNamed(context, '/TransactionDetails',
+              Router.navigator.pushNamed(Router.transactionDetailsScreen,
                   arguments: TransactionDetailArguments(
                     transfer: transfer,
                     contact: _contact,

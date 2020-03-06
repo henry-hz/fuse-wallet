@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/app_state.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/widgets/main_scaffold.dart';
 import 'package:fusecash/widgets/primary_button.dart';
 import 'package:fusecash/models/views/onboard.dart';
@@ -26,12 +27,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
     return new StoreConnector<AppState, OnboardViewModel>(
         distinct: true,
         converter: OnboardViewModel.fromStore,
-        onWillChange: (viewModel) {
-          if (viewModel.loginVerifySuccess) {
-            //Navigator.popUntil(context, ModalRoute.withName('/'));
-            //Navigator.popAndPushNamed(context, '/Cash');
-          }
-        },
         builder: (_, viewModel) {
           return MainScaffold(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -45,7 +40,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        I18n.of(context).we_just_sent +
+                          I18n.of(context).we_just_sent +
                               "${viewModel.countryCode} ${viewModel.phoneNumber}" +
                               "\n\n" +
                               I18n.of(context).enter_verification_code,
@@ -61,7 +56,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         child: Container(
                           width: 280,
                           child: new Theme(
-                              data: new ThemeData(hintColor: Theme.of(context).scaffoldBackgroundColor),
+                              data: new ThemeData(
+                                  hintColor: Theme.of(context)
+                                      .scaffoldBackgroundColor),
                               child: PinInputTextField(
                                 pinLength: 6,
                                 decoration: UnderlineDecoration(
@@ -97,7 +94,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                           viewModel.phoneNumber,
                           verificationCodeController.text,
                           viewModel.accountAddress, () async {
-                        Navigator.popAndPushNamed(context, '/UserName');
+                            Router.navigator.popAndPushNamed(Router.userNameScreen);
                         setState(() {
                           isPreloading = false;
                         });
@@ -125,8 +122,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                             viewModel.phoneNumber,
                             verificationCodeController.text,
                             viewModel.accountAddress, () async {
-                          // Navigator.popUntil(context, ModalRoute.withName('/'));
-                          Navigator.popAndPushNamed(context, '/Cash');
+                          Router.navigator.popAndPushNamed(Router.userNameScreen);
                           setState(() {
                             isPreloading = false;
                           });

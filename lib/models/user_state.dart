@@ -23,9 +23,12 @@ class UserState {
   final bool isLoggedOut;
   final bool isContactsSynced;
   final bool backup;
+  final int displayBalance;
+  final DateTime installedAt;
 
   @JsonKey(ignore: true)
   final List<Contact> contacts;
+  @JsonKey(ignore: true)
 
   UserState(
       {this.mnemonic,
@@ -44,7 +47,9 @@ class UserState {
       this.loginVerifySuccess,
       this.isLoggedOut,
       this.isContactsSynced,
-      this.backup});
+      this.backup,
+      this.displayBalance,
+      this.installedAt});
 
   factory UserState.initial() {
     return new UserState(
@@ -64,7 +69,9 @@ class UserState {
         loginVerifySuccess: false,
         isLoggedOut: false,
         isContactsSynced: null,
-        backup: false);
+        backup: false,
+        displayBalance: 0,
+        installedAt: DateTime.now().toUtc());
   }
 
   UserState copyWith(
@@ -84,7 +91,9 @@ class UserState {
       bool loginVerifySuccess,
       bool isLoggedOut,
       bool isContactsSynced,
-      bool backup}) {
+      bool backup,
+      int displayBalance,
+      DateTime installedAt}) {
     return UserState(
         mnemonic: mnemonic ?? this.mnemonic,
         privateKey: privateKey ?? this.privateKey,
@@ -102,12 +111,12 @@ class UserState {
         loginVerifySuccess: loginVerifySuccess ?? this.loginVerifySuccess,
         isLoggedOut: isLoggedOut ?? this.isLoggedOut,
         isContactsSynced: isContactsSynced ?? this.isContactsSynced,
-        backup: backup ?? this.backup);
+        backup: backup ?? this.backup,
+        displayBalance: displayBalance ?? this.displayBalance,
+        installedAt: installedAt ?? this.installedAt);
   }
 
   dynamic toJson() => _$UserStateToJson(this);
 
-  static UserState fromJson(dynamic json) {
-    return _$UserStateFromJson(json);
-  }
+  static UserState fromJson(dynamic json) => _$UserStateFromJson(json);
 }

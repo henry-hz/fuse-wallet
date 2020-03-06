@@ -15,6 +15,8 @@ final userReducers = combineReducers<UserState>([
   TypedReducer<UserState, SetDisplayName>(_setDisplayName),
   TypedReducer<UserState, ReLogin>(_reLoginUser),
   TypedReducer<UserState, BackupSuccess>(_backupSuccess),
+  TypedReducer<UserState, UpdateDisplayBalance>(_updateDisplayBalance),
+  TypedReducer<UserState, JustInstalled>(_justInstalled),
 ]);
 
 UserState _backupSuccess(UserState state, BackupSuccess action) {
@@ -44,8 +46,6 @@ UserState _loginSuccess(UserState state, LoginRequestSuccess action) {
   return state.copyWith(
       countryCode: action.countryCode,
       phoneNumber: action.phoneNumber,
-      displayName: action.displayName,
-      email: action.email,
       loginRequestSuccess: true);
 }
 
@@ -90,4 +90,12 @@ UserState _saveContacts(UserState state, SaveContacts action) {
 
 UserState _setPincode(UserState state, SetPincodeSuccess action) {
   return state.copyWith(pincode: action.pincode);
+}
+
+UserState _updateDisplayBalance(UserState state, UpdateDisplayBalance action) {
+  return state.copyWith(displayBalance: action.displayBalance);
+}
+
+UserState _justInstalled(UserState state, JustInstalled action) {
+  return state.copyWith(installedAt: action.installedAt);
 }

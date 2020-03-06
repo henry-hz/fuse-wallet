@@ -45,8 +45,17 @@ class InviteBonusJob extends Job {
     int jobTime = this.timeStart;
     final int millisecondsIntoMin = 2 * 60 * 1000;
     if ((current - jobTime) > millisecondsIntoMin && isReported != null && !isReported) {
-      store.dispatch(segmentTrackCall('Wallet: pending job $id $name'));
+      store.dispatch(segmentTrackCall('Wallet: pending job', properties: new Map<String, dynamic>.from({ 'id': id, 'name': name })));
       this.isReported = true;
+    }
+
+    if (fetchedData['failReason'] != null && fetchedData['failedAt'] != null) {
+      logger.info('InviteBonusJob FAILED');
+      this.status = 'FAILED';
+      String failReason = fetchedData['failReason'];
+      store.dispatch(transactionFailed(arguments['inviteBonus']));
+      store.dispatch(segmentTrackCall('Wallet: job failed', properties: new Map<String, dynamic>.from({ 'id': id, 'failReason': failReason, 'name': name })));
+      return;
     }
 
     if (fetchedData['data']['funderJobId'] != null) {
@@ -57,7 +66,7 @@ class InviteBonusJob extends Job {
       if (responseStatus == 'SUCCEEDED') {
         this.status = 'DONE';
         store.dispatch(inviteBonusSuccessCall(data['txHash'], arguments['inviteBonus']));
-        store.dispatch(segmentTrackCall('Wallet: SUCCEEDED job $id $name'));
+        store.dispatch(segmentTrackCall('Wallet: job succeeded', properties: new Map<String, dynamic>.from({ 'id': id, 'name': name })));
         logger.info('InviteBonusJob SUCCEEDED');
         return;
       } else if (responseStatus == 'FAILED') {

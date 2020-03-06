@@ -8,6 +8,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fusecash/models/community.dart';
 import 'package:fusecash/models/plugins.dart';
 import 'package:fusecash/screens/cash_home/deposit_webview.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/utils/forks.dart';
 import 'package:fusecash/utils/format.dart';
 import 'package:redux/redux.dart';
@@ -16,9 +17,6 @@ import 'package:fusecash/redux/actions/user_actions.dart';
 String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
 class DrawerWidget extends StatefulWidget {
-  DrawerWidget({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
   _DrawerWidgetState createState() => _DrawerWidgetState();
@@ -98,7 +96,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 builder: (context) =>
                     DepositWebView(depositPlugin: depositPlugins[0])),
           );
-          await FlutterSegment.track(eventName: 'User clicked on top up');
+          await Segment.track(eventName: 'User clicked on top up');
         },
       ));
     }
@@ -110,22 +108,22 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     if (isFork() || isPaywise(viewModel.communityAddress)) {
       return [
         getListTile(I18n.of(context).backup_wallet, () {
-          Navigator.pushNamed(context, '/Backup1');
+          Router.navigator.pushNamed(Router.showMnemonic);
         }, icon: 'backup_icon.svg'),
         getListTile(I18n.of(context).settings, () {
-          Navigator.pushNamed(context, '/Settings');
+          Router.navigator.pushNamed(Router.settingsScreen);
         }, icon: 'settings_icon.svg'),
       ];
     } else {
       return [
         getListTile(I18n.of(context).switch_community, () {
-          Navigator.pushNamed(context, '/Switch');
+          Router.navigator.pushNamed(Router.switchCommunityScreen);
         }, icon: 'switch_icon.svg'),
         getListTile(I18n.of(context).backup_wallet, () {
-          Navigator.pushNamed(context, '/Backup1');
+          Router.navigator.pushNamed(Router.showMnemonic);
         }, icon: 'backup_icon.svg'),
         getListTile(I18n.of(context).settings, () {
-          Navigator.pushNamed(context, '/Settings');
+          Router.navigator.pushNamed(Router.settingsScreen);
         }, icon: 'settings_icon.svg'),
       ];
     }

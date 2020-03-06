@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_segment/flutter_segment.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/app_state.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/widgets/country_code_picker/country_code_picker.dart';
 import 'package:fusecash/widgets/country_code_picker/country_code.dart';
 // import 'package:fusecash/widgets/country_code_picker/country_codes.dart';
@@ -83,10 +84,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               builder: (BuildContext context) {
                                 return SignupDialog();
                               });
-                          await FlutterSegment.track(
-                              eventName:
-                                  "Wallet: opened modal - why do we need this",
-                              properties: new Map<String, dynamic>());
+                          await Segment.track(eventName: "Wallet: opened modal - why do we need this");
                         },
                         child: Center(
                           child: Text(
@@ -156,6 +154,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller: phoneController,
                                   keyboardType: TextInputType.number,
                                   autofocus: true,
+                                  validator: (String value) => value.isEmpty ? "Please enter mobile number" : null,
                                   style: const TextStyle(
                                       fontSize: 16, color: Colors.black),
                                   decoration: const InputDecoration(
@@ -191,7 +190,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               });
                               viewModel.signUp(countryCode.dialCode.toString(),
                                   phoneController.text, () {
-                                Navigator.pushNamed(context, '/Verify');
+                                Router.navigator.pushNamed(Router.verifyScreen);
                                 setState(() {
                                   isPreloading = false;
                                 });

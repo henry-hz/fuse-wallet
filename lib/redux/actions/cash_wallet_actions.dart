@@ -11,6 +11,7 @@ import 'package:fusecash/models/plugins.dart';
 import 'package:fusecash/models/transaction.dart';
 import 'package:fusecash/models/transactions.dart';
 import 'package:fusecash/models/transfer.dart';
+import 'package:fusecash/models/user_state.dart';
 import 'package:fusecash/redux/actions/error_actions.dart';
 import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 import 'package:fusecash/redux/actions/user_actions.dart';
@@ -236,7 +237,11 @@ ThunkAction enablePushNotifications() {
 
       String walletAddress = store.state.cashWalletState.walletAddress;
       await api.updateFirebaseToken(walletAddress, token);
-      await FlutterSegment.putDeviceToken(token);
+      await Segment.setContext({
+        'device': {
+          'token': token
+        },
+      });
 
       firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
@@ -260,7 +265,7 @@ ThunkAction segmentTrackCall(eventName, {Map<String, dynamic> properties}) {
     final logger = await AppFactory().getLogger('action');
     try {
       logger.info('Track - $eventName');
-      await FlutterSegment.track(eventName: eventName, properties: properties);
+      await Segment.track(eventName: eventName, properties: properties);
     } catch (e, s) {
       logger.severe('ERROR - segment track call: $e');
       await AppFactory().reportError(e, s);
@@ -273,7 +278,7 @@ ThunkAction segmentAliasCall(String userId) {
     final logger = await AppFactory().getLogger('action');
     try {
       logger.info('Alias - $userId');
-      await FlutterSegment.alias(alias: userId);
+      await Segment.alias(alias: userId);
     } catch (e, s) {
       logger.severe('ERROR - segment alias call: $e');
       await AppFactory().reportError(e, s);
@@ -281,12 +286,22 @@ ThunkAction segmentAliasCall(String userId) {
   };
 }
 
-ThunkAction segmentIdentifyCall(String userId, Map<String, dynamic> traits) {
+ThunkAction segmentIdentifyCall(Map<String, dynamic> traits) {
   return (Store store) async {
     final logger = await AppFactory().getLogger('action');
     try {
-      logger.info('Identify - $userId');
-      await FlutterSegment.identify(userId: userId, traits: traits);
+      UserState userState = store.state.userState;
+      String fullPhoneNumber = formatPhoneNumber(userState.phoneNumber, userState.countryCode);
+      logger.info('Identify - $fullPhoneNumber');
+      traits = traits ?? new Map<String, dynamic>();
+      DateTime installedAt = userState.installedAt;
+      if (installedAt == null) {
+        installedAt = DateTime.now().toUtc();
+        store.dispatch(new JustInstalled(installedAt));
+      }
+      traits["Installed At"] = installedAt.toIso8601String();
+      traits["Display Balance"] = userState.displayBalance ?? 0;
+      await Segment.identify(userId: fullPhoneNumber, traits: traits);
     } catch (e, s) {
       logger.severe('ERROR - segment identify call: $e');
       await AppFactory().reportError(e, s);
@@ -306,12 +321,14 @@ ThunkAction listenToBranchCall() {
         var communityAddress = linkData["community_address"];
         logger.info("communityAddress $communityAddress");
         store.dispatch(BranchCommunityToUpdate(communityAddress));
+        store.dispatch(segmentIdentifyCall(Map<String, dynamic>.from({ 'Referral': linkData["~feature"], 'Referral link': linkData['~referring_link'] })));
         store.dispatch(segmentTrackCall("Wallet: Branch: Studio Invite", properties: new Map<String, dynamic>.from(linkData)));
       }
       if (linkData["~feature"] == "invite_user") {
         var communityAddress = linkData["community_address"];
         logger.info("community_address $communityAddress");
         store.dispatch(BranchCommunityToUpdate(communityAddress));
+        store.dispatch(segmentIdentifyCall(Map<String, dynamic>.from({ 'Referral': linkData["~feature"], 'Referral link': linkData['~referring_link'] })));
         store.dispatch(segmentTrackCall("Wallet: Branch: User Invite", properties: new Map<String, dynamic>.from(linkData)));
       }
       store.dispatch(BranchDataReceived());
@@ -416,11 +433,17 @@ ThunkAction createAccountWalletCall(String accountAddress) {
     try {
       logger.info('createAccountWalletCall');
       logger.info('accountAddress: $accountAddress');
-      store.dispatch(new CreateAccountWalletRequest(accountAddress));
       Map<String, dynamic> response = await api.createWallet();
       if (!response.containsKey('job')) {
         logger.info('Wallet already exists');
         store.dispatch(generateWalletSuccessCall(response, accountAddress));
+        store.dispatch(new CreateAccountWalletSuccess(accountAddress));
+        return;
+      }
+      List<Job> jobs = store.state.cashWalletState.communities[store.state.cashWalletState.communityAddress].jobs;
+      bool hasCreateWallet = jobs.any((job) => job.jobType == 'createWallet');
+      if (hasCreateWallet) {
+        store.dispatch(new CreateAccountWalletRequest(accountAddress));
         return;
       }
       response['job']['arguments'] = {
@@ -428,6 +451,7 @@ ThunkAction createAccountWalletCall(String accountAddress) {
       };
       Job job = JobFactory.create(response['job']);
       store.dispatch(AddJob(job));
+      store.dispatch(new CreateAccountWalletRequest(accountAddress));
     } catch (e) {
       logger.severe('ERROR - createAccountWalletCall $e');
       store.dispatch(new ErrorAction('Could not create wallet'));
@@ -470,8 +494,17 @@ ThunkAction getTokenBalanceCall(String tokenAddress) {
     final logger = await AppFactory().getLogger('action');
     try {
       String walletAddress = store.state.cashWalletState.walletAddress;
-      BigInt tokenBalance = await graph.getTokenBalance(walletAddress, tokenAddress);
+      BigInt tokenBalance = (await graph.getTokenBalance(walletAddress, tokenAddress));
+      String communityAddress = store.state.cashWalletState.communityAddress;
+      Community community = store.state.cashWalletState.communities[communityAddress];
+      String balance = formatValue(tokenBalance, community.token.decimals);
+
       store.dispatch(new GetTokenBalanceSuccess(tokenBalance));
+      store.dispatch(new UpdateDisplayBalance(int.parse(balance)));
+      store.dispatch(segmentIdentifyCall(Map<String, dynamic>.from({
+        '${community.name} Balance': balance,
+        "DisplayBalance": balance
+      })));
     } catch (e) {
       logger.severe('ERROR - getTokenBalanceCall $e');
       store.dispatch(new ErrorAction('Could not get token balance'));
@@ -522,16 +555,17 @@ ThunkAction startFetchingJobCall(
 
 ThunkAction processingJobsCall(Timer timer) {
   return (Store store) async {
-    String communityAddres = store.state.cashWalletState.communityAddress;
+    final logger = await AppFactory().getLogger('Job');
+    String communityAddress = store.state.cashWalletState.communityAddress;
     String walletAddress = store.state.cashWalletState.walletAddress;
-    Community community = store.state.cashWalletState.communities[communityAddres];
+    Community community = store.state.cashWalletState.communities[communityAddress];
     List<Job> jobs = community.jobs;
     for (Job job in jobs) {
       String currentCommunityAddress = store.state.cashWalletState.communityAddress;
       String currentWalletAddress = store.state.cashWalletState.walletAddress;
       if (job.status != 'DONE' && job.status != 'FAILED') {
         bool isJobProcessValid() {
-          if ((currentCommunityAddress != communityAddres) || (currentWalletAddress != walletAddress)) {
+          if ((currentCommunityAddress != communityAddress) || (currentWalletAddress != walletAddress)) {
             timer.cancel();
             return false;
           }
@@ -540,7 +574,11 @@ ThunkAction processingJobsCall(Timer timer) {
           }
           return true;
         }
-        await job.perform(store, isJobProcessValid);
+        try {
+          await job.perform(store, isJobProcessValid);
+        } catch (e) {
+          logger.severe('failed perform ${job.name}');
+        }
       }
       if (job.status == 'DONE') {
         store.dispatch(JobDone(job));
@@ -627,6 +665,11 @@ ThunkAction inviteAndSendSuccessCall(Job job, dynamic data, tokensAmount, receiv
           if (community.plugins.inviteBonus != null && community.plugins.inviteBonus.isActive && data['bonusInfo'] != null) {
           store.dispatch(inviteBonusCall(data));
         }
+        store.dispatch(segmentIdentifyCall(
+          new Map<String, dynamic>.from({
+            "Invite ${community.name}": true,
+          })
+        ));
       };
 
       String receiverAddress = job.data["walletAddress"];
@@ -748,51 +791,6 @@ ThunkAction transactionFailed(transfer) {
   };
 }
 
-ThunkAction sendToInviteCall(String receiverAddress, num tokensAmount, Transfer inviteWithJobId) {
-  return (Store store) async {
-    final logger = await AppFactory().getLogger('action');
-    try {
-      wallet_core.Web3 web3 = store.state.cashWalletState.web3;
-      String walletAddress = store.state.cashWalletState.walletAddress;
-      String communityAddres = store.state.cashWalletState.communityAddress;
-      Community community =
-          store.state.cashWalletState.communities[communityAddres];
-      Token token = community.token;
-      String tokenAddress = token.address;
-
-      BigInt value = toBigInt(tokensAmount, token.decimals);
-
-      logger.info(
-          'Sending $tokensAmount tokens of $tokenAddress from wallet $walletAddress to $receiverAddress');
-      dynamic response = await api.tokenTransfer(
-          web3, walletAddress, tokenAddress, receiverAddress, tokensAmount);
-
-      dynamic jobId = response['job']['_id'];
-      logger.info('Job $jobId for sending token sent to the relay service');
-
-      store.dispatch(startFetchingJobCall(jobId, (job) {
-        store.dispatch(new TransferJobSuccess(job));
-        Transfer confirmedTx = inviteWithJobId.copyWith(
-            status: 'CONFIRMED', txHash: job.data['txHash']);
-        store.dispatch(new ReplaceTransaction(inviteWithJobId, confirmedTx));
-      }));
-
-      Transfer transfer = new Transfer(
-          from: walletAddress,
-          to: receiverAddress,
-          tokenAddress: tokenAddress,
-          value: value,
-          type: 'SEND',
-          status: 'PENDING',
-          jobId: jobId);
-      store.dispatch(new ReplaceTransaction(inviteWithJobId, transfer));
-    } catch (e) {
-      logger.severe('ERROR - sendToInviteCall $e');
-      store.dispatch(new ErrorAction('Could not send token'));
-    }
-  };
-}
-
 ThunkAction joinCommunityCall({dynamic community, dynamic token}) {
   return (Store store) async {
     final logger = await AppFactory().getLogger('action');
@@ -838,7 +836,6 @@ ThunkAction joinCommunitySuccessCall(Job job, dynamic fetchedData, Transfer tran
       text: 'Connected to ' + (community["name"]) + ' network',
       txHash: job.data['txHash']);
     store.dispatch(new ReplaceTransaction(transfer, confirmedTx));
-
     String communityAddres = store.state.cashWalletState.communityAddress;
     Community communityData = store.state.cashWalletState.communities[communityAddres];
     if (communityData.plugins.joinBonus != null && communityData.plugins.joinBonus.isActive) {
@@ -863,6 +860,11 @@ ThunkAction joinCommunitySuccessCall(Job job, dynamic fetchedData, Transfer tran
       });
       Job job = JobFactory.create(response['job']);
       store.dispatch(AddJob(job));
+      store.dispatch(segmentIdentifyCall(
+        new Map<String, dynamic>.from({
+          "Community ${communityData.name} Joined": true,
+        })
+      ));
     }
   };
 }
@@ -873,6 +875,11 @@ ThunkAction joinBonusSuccessCall(txHash, transfer) {
     Community communityData = store.state.cashWalletState.communities[communityAddres];
     Transfer confirmedTx = transfer.copyWith(status: 'CONFIRMED', txHash: txHash);
     store.dispatch(new ReplaceTransaction(transfer, confirmedTx));
+    store.dispatch(segmentIdentifyCall(
+      new Map<String, dynamic>.from({
+        "Join Bonus ${communityData.name} Received": true,
+      })
+    ));
     store.dispatch(segmentTrackCall("Wallet: user got a join bonus",
         properties: new Map<String, dynamic>.from({
           "Community Name": communityData.name,
