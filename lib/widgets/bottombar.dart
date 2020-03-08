@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fusecash/common.dart';
 import 'package:fusecash/generated/i18n.dart';
-import 'package:fusecash/models/app_state.dart';
-import 'package:fusecash/models/views/prize.dart';
-import 'package:fusecash/screens/cash_home/cash_home.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 
 isCurrentRoute(BuildContext context, String route) {
   String currentRoute = ModalRoute.of(context).settings.name;
@@ -14,83 +11,84 @@ isCurrentRoute(BuildContext context, String route) {
 
 Widget bottomBar(BuildContext context) {
   bool isHomePage = isCurrentRoute(context, '/Cash');
-  return new StoreConnector<AppState, PrizeViewModel>(
-      converter: PrizeViewModel.fromStore,
-      builder: (_, viewModel) {
-        return Hero(
-          tag: "footerNav",
-          child: new Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).bottomAppBarColor,
-                border: Border(top: BorderSide(color: Color(0xFFE8E8E8)))),
-            padding: EdgeInsets.only(
-              top: 8,
-              bottom: isIPhoneX() ? 16 : 4,
-              right: 0.0,
-              left: 0.0,
-            ),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                bottomBarItem(
-                    isCurrentRoute(context, '/Cash')
-                        ? "home_selected.svg"
-                        : "home.svg",
-                    I18n.of(context).home, () {
-                  if (isHomePage) {
-                    redirect(context, '/Cash');
-                  } else {
-                    Navigator.pop(context, ModalRoute.withName('/Cash'));
-                    redirect(context, '/Cash');
-                  }
-                }),
-                bottomBarItem(
-                    isCurrentRoute(context, '/SendContact')
-                        ? "send_selected.svg"
-                        : "send.svg",
-                    I18n.of(context).send_button, () {
-                  if (isHomePage) {
-                    redirect(context, '/SendContact');
-                  } else {
-                    Navigator.pop(context, ModalRoute.withName('/Cash'));
-                    redirect(context, '/SendContact');
-                  }
-                }),
-                bottomBarItem(
-                    isCurrentRoute(context, '/Buy')
-                        ? "buy_selected.svg"
-                        : "buy.svg",
-                    I18n.of(context).buy, () {
-                  if (isHomePage) {
-                    redirect(context, '/Buy');
-                  } else {
-                    Navigator.popUntil(context, ModalRoute.withName('/Cash'));
-                    redirect(context, '/Buy');
-                  }
-                }),
-                bottomBarItem(
-                    isCurrentRoute(context, '/Receive')
-                        ? "receive_selected.svg"
-                        : "receive.svg",
-                    I18n.of(context).receive, () {
-                  if (isHomePage) {
-                    redirect(context, '/Receive');
-                  } else {
-                    Navigator.popUntil(context, ModalRoute.withName('/Cash'));
-                    redirect(context, '/Receive');
-                  }
-                })
-              ],
-            ),
-          ),
-        );
-      });
+  return Hero(
+    tag: "footerNav",
+    child: new Container(
+      decoration: BoxDecoration(
+          color: Theme.of(context).bottomAppBarColor,
+          border: Border(top: BorderSide(color: Color(0xFFE8E8E8)))),
+      padding: EdgeInsets.only(
+        top: 8,
+        bottom: isIPhoneX() ? 16 : 4,
+        right: 0.0,
+        left: 0.0,
+      ),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          bottomBarItem(
+              isCurrentRoute(context, Router.cashHomeScreen)
+                  ? "home_selected.svg"
+                  : "home.svg",
+              I18n.of(context).home, () {
+            if (isHomePage) {
+              redirect(context, Router.cashHomeScreen);
+            } else {
+              Router.navigator
+                  .popUntil(ModalRoute.withName(Router.cashHomeScreen));
+              redirect(context, Router.cashHomeScreen);
+            }
+          }),
+          bottomBarItem(
+              isCurrentRoute(context, Router.sendToContactScreen)
+                  ? "send_selected.svg"
+                  : "send.svg",
+              I18n.of(context).send_button, () {
+            if (isHomePage) {
+              redirect(context, Router.sendToContactScreen);
+            } else {
+              Router.navigator
+                  .popUntil(ModalRoute.withName(Router.cashHomeScreen));
+              redirect(context, Router.sendToContactScreen);
+            }
+          }),
+          bottomBarItem(
+              isCurrentRoute(context, Router.buyScreen)
+                  ? "buy_selected.svg"
+                  : "buy.svg",
+              I18n.of(context).buy, () {
+            if (isHomePage) {
+              redirect(context, Router.buyScreen);
+            } else {
+              Router.navigator
+                  .popUntil(ModalRoute.withName(Router.cashHomeScreen));
+              redirect(context, Router.buyScreen);
+            }
+          }),
+          bottomBarItem(
+              isCurrentRoute(context, Router.receiveScreen)
+                  ? "receive_selected.svg"
+                  : "receive.svg",
+              I18n.of(context).receive, () {
+            if (isHomePage) {
+              redirect(context, Router.receiveScreen);
+            } else {
+              Router.navigator
+                  .popUntil(ModalRoute.withName(Router.cashHomeScreen));
+              redirect(context, Router.receiveScreen);
+            }
+          })
+        ],
+      ),
+    ),
+  );
 }
 
 void redirect(BuildContext context, String screen) {
-  Navigator.popUntil(context, (route) {
+  Router.navigator.popUntil((route) {
     if (route.settings.name != screen) {
-      Navigator.pushNamed(context, screen);
+      Router.navigator.pushNamed(screen);
     }
     return true;
   });

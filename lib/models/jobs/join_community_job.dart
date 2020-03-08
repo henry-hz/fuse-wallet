@@ -42,8 +42,17 @@ class JoinCommunityJob extends Job {
     int jobTime = this.timeStart;
     final int millisecondsIntoMin = 2 * 60 * 1000;
     if ((current - jobTime) > millisecondsIntoMin && isReported != null && !isReported) {
-      store.dispatch(segmentTrackCall('Wallet: pending job $id $name'));
+      store.dispatch(segmentTrackCall('Wallet: pending job', properties: new Map<String, dynamic>.from({ 'id': id, 'name': name })));
       this.isReported = true;
+    }
+
+    if (fetchedData['failReason'] != null && fetchedData['failedAt'] != null) {
+      logger.info('JoinCommunityJob FAILED');
+      this.status = 'FAILED';
+      String failReason = fetchedData['failReason'];
+      store.dispatch(transactionFailed(arguments['transfer']));
+      store.dispatch(segmentTrackCall('Wallet: job failed', properties: new Map<String, dynamic>.from({ 'id': id, 'failReason': failReason, 'name': name })));
+      return;
     }
 
     if (job.lastFinishedAt == null || job.lastFinishedAt.isEmpty) {
@@ -52,7 +61,7 @@ class JoinCommunityJob extends Job {
     }
     this.status = 'DONE';
     store.dispatch(joinCommunitySuccessCall(job, fetchedData, arguments['transfer'], arguments['community']));
-    store.dispatch(segmentTrackCall('Wallet: SUCCEEDED job $id $name'));
+    store.dispatch(segmentTrackCall('Wallet: job succeeded', properties: new Map<String, dynamic>.from({ 'id': id, 'name': name })));
   }
 
   @override

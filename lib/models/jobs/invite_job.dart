@@ -41,8 +41,17 @@ class InviteJob extends Job {
     int jobTime = this.timeStart;
     final int millisecondsIntoMin = 2 * 60 * 1000;
     if ((current - jobTime) > millisecondsIntoMin && isReported != null && !isReported) {
-      store.dispatch(segmentTrackCall('Wallet: pending job $id $name'));
+      store.dispatch(segmentTrackCall('Wallet: pending job', properties: new Map<String, dynamic>.from({ 'id': id, 'name': name })));
       this.isReported = true;
+    }
+
+    if (fetchedData['failReason'] != null && fetchedData['failedAt'] != null) {
+      logger.info('InviteJob FAILED');
+      this.status = 'FAILED';
+      String failReason = fetchedData['failReason'];
+      store.dispatch(transactionFailed(arguments['inviteTransfer']));
+      store.dispatch(segmentTrackCall('Wallet: job failed', properties: new Map<String, dynamic>.from({ 'id': id, 'failReason': failReason, 'name': name })));
+      return;
     }
 
     Job job = JobFactory.create(fetchedData);
@@ -60,7 +69,7 @@ class InviteJob extends Job {
         arguments['inviteTransfer'],
         arguments['sendSuccessCallback'],
         arguments['sendFailureCallback']));
-    store.dispatch(segmentTrackCall('Wallet: SUCCEEDED job $id $name'));
+    store.dispatch(segmentTrackCall('Wallet: job succeeded', properties: new Map<String, dynamic>.from({ 'id': id, 'name': name })));
   }
 
   @override

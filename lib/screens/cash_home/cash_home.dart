@@ -40,7 +40,7 @@ void onChange(CashWalletViewModel viewModel, BuildContext context,
       viewModel.walletAddress != '') {
     viewModel.branchCommunityUpdate();
   }
-  if (viewModel.walletStatus == null && viewModel.accountAddress != '') {
+  if (viewModel.walletStatus != 'deploying' && viewModel.walletStatus != 'created' && viewModel.accountAddress != '') {
     viewModel.createWallet(viewModel.accountAddress);
   }
   if (!viewModel.isCommunityLoading &&
@@ -64,7 +64,6 @@ void onChange(CashWalletViewModel viewModel, BuildContext context,
 }
 
 class CashHomeScreen extends StatelessWidget {
-  CashHomeScreen();
 
   // void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
   //   CustomTheme.instanceOf(buildContext).changeTheme(key);
@@ -78,9 +77,9 @@ class CashHomeScreen extends StatelessWidget {
         onInitialBuild: (viewModel) async {
           onChange(viewModel, context, initial: true);
         },
-        onWillChange: (viewModel) async {
+        onWillChange: (prevViewModel, nextViewModel) async {
           // updateTheme(viewModel, _changeTheme, context);
-          onChange(viewModel, context);
+          onChange(nextViewModel, context);
         },
         builder: (_, viewModel) {
           bool isWalletCreated = 'created' == viewModel.walletStatus;
