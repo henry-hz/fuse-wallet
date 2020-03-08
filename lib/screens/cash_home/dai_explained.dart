@@ -1,8 +1,10 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter_segment/flutter_segment.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/screens/cash_home/webview_page.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/widgets/bottombar.dart';
 import 'package:fusecash/widgets/main_scaffold.dart';
 import 'package:flushbar/flushbar.dart';
@@ -16,7 +18,6 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-        expandedHeight: MediaQuery.of(context).size.height / 8,
         title: I18n.of(context).dai_points,
         titleFontSize: 15,
         footer: bottomBar(context),
@@ -82,7 +83,7 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Win up to 30 points!',
+                                  'Win up to 100 points!',
                                   style: TextStyle(
                                       fontSize: 13,
                                       color: Theme.of(context)
@@ -99,7 +100,7 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  Text('Get 10 points for installing the app',
+                                  Text('Get 20 points for installing the app',
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Theme.of(context)
@@ -115,7 +116,7 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                                     width: 5,
                                   ),
                                   Text(
-                                      'Get 10 points after sending money to a friend',
+                                      'Get 40 points after sending money to a friend',
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Theme.of(context)
@@ -131,7 +132,7 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                                     width: 5,
                                   ),
                                   Text(
-                                      'Get 10 points for backing-up your wallet',
+                                      'Get 40 points for backing-up your wallet',
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Theme.of(context)
@@ -161,8 +162,10 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                                               .primaryColor
                                               .withAlpha(14))),
                                   child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, '/Prize');
+                                    onTap: () async {
+                                      Router.navigator.pushNamed(Router.prizeScreen);
+                                      await Segment.track(
+                                          eventName: "User open prize page");
                                     },
                                     child: Row(
                                         mainAxisAlignment:
@@ -284,7 +287,7 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/WebPage',
+                  Router.navigator.pushNamed(Router.webViewPage,
                       arguments: WebViewPageArguments(
                           url:
                               'https://docs.fuse.io/the-mobile-wallet/what-is-dai-points',

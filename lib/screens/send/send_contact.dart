@@ -10,6 +10,7 @@ import 'package:fusecash/models/business.dart';
 import 'package:fusecash/models/transaction.dart';
 import 'package:fusecash/models/transfer.dart';
 import 'package:fusecash/models/views/contacts.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/screens/send/enable_contacts.dart';
 import 'package:fusecash/screens/send/send_amount_arguments.dart';
 import 'package:fusecash/services.dart';
@@ -23,7 +24,7 @@ import "package:ethereum_address/ethereum_address.dart";
 import 'dart:math' as math;
 
 dynamic getImage(Transfer transfer, Contact contact, businesses) {
-  if (contact?.avatar != null) {
+  if (contact?.avatar != null && contact.avatar.isNotEmpty) {
     return new MemoryImage(contact.avatar);
   } else {
     String accountAddress =
@@ -183,7 +184,7 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
               String phoneNumber = formatPhoneNumber(user.phones.first.value, viewModel.countryCode);
               dynamic data = await api.getWalletByPhoneNumber(phoneNumber);
               String accountAddress = data['walletAddress'] != null ? data['walletAddress'] : null;
-              Navigator.pushNamed(context, '/SendAmount',
+              Router.navigator.pushNamed(Router.sendAmountScreen,
                   arguments: SendAmountArguments(
                       name: user.displayName,
                       accountAddress: accountAddress,
@@ -238,7 +239,7 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
               style: TextStyle(color: Color(0xFF0377FF)),
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/SendAmount',
+              Router.navigator.pushNamed(Router.sendAmountScreen,
                   arguments: SendAmountArguments(
                       accountAddress: accountAddress,
                       name: formatAddress(accountAddress),
@@ -247,7 +248,7 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
           ),
           //subtitle: Text("user.company" ?? ""),
           onTap: () {
-            Navigator.pushNamed(context, '/SendAmount',
+            Router.navigator.pushNamed(Router.sendAmountScreen,
                 arguments: SendAmountArguments(
                     accountAddress: accountAddress,
                     name: formatAddress(accountAddress),
@@ -266,7 +267,7 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
     final sorted =
         new List<Transaction>.from(viewModel.transactions.list.toSet().toList())
             .where((t) {
-      return t.type == 'SEND';
+      return t.type == 'SEND' && t.isConfirmed();
     }).toList()
               ..sort((a, b) {
                 if (a.blockNumber != null && b.blockNumber != null) {
@@ -342,11 +343,11 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
                 String phoneNumber = formatPhoneNumber(contact.phones.first.value, viewModel.countryCode);
                 dynamic data = await api.getWalletByPhoneNumber(phoneNumber);
                 String accountAddress = data['walletAddress'] != null ? data['walletAddress'] : null;
-                Navigator.pushNamed(context, '/SendAmount',
+                Router.navigator.pushNamed(Router.sendAmountScreen,
                     arguments: SendAmountArguments(
                         accountAddress: accountAddress,
                         name: displatName,
-                        avatar: contact?.avatar != null
+                        avatar: contact?.avatar != null && contact.avatar.isNotEmpty
                             ? MemoryImage(contact.avatar)
                             : new AssetImage('assets/images/anom.png'),
                         phoneNumber: phoneNumber));
@@ -456,7 +457,7 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
                         String accountAddress = await BarcodeScanner.scan();
                         List<String> parts = accountAddress.split(':');
                         if (parts.length == 2 && parts[0] == 'fuse') {
-                          Navigator.pushNamed(context, '/SendAmount',
+                          Router.navigator.pushNamed(Router.sendAmountScreen,
                               arguments: SendAmountArguments(
                                   accountAddress: parts[1]));
                         } else {

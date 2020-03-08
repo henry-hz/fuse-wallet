@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fusecash/models/community.dart';
 import 'package:fusecash/models/jobs/base.dart';
@@ -39,8 +41,7 @@ class LoginRequestSuccess {
   final String phoneNumber;
   final String displayName;
   final String email;
-  LoginRequestSuccess(
-      this.countryCode, this.phoneNumber, this.displayName, this.email);
+  LoginRequestSuccess(this.countryCode, this.phoneNumber, this.displayName, this.email);
 }
 
 class LogoutRequestSuccess {
@@ -85,6 +86,16 @@ class BackupSuccess {
   BackupSuccess();
 }
 
+class UpdateDisplayBalance {
+  final int displayBalance;
+  UpdateDisplayBalance(this.displayBalance);
+}
+
+class JustInstalled {
+  final DateTime installedAt;
+  JustInstalled(this.installedAt);
+}
+
 ThunkAction backupWalletCall() {
   return (Store store) async {
     if (store.state.userState.backup) return;
@@ -124,6 +135,7 @@ ThunkAction backupSuccessCall(String txHash, transfer) {
     Transfer confirmedTx = transfer.copyWith(status: 'CONFIRMED', txHash: txHash);
     store.dispatch(new ReplaceTransaction(transfer, confirmedTx));
     store.dispatch(BackupSuccess());
+    store.dispatch(segmentIdentifyCall(Map<String, dynamic>.from({ 'Wallet backed up success': true })));
     store.dispatch(segmentTrackCall('Wallet: backup success'));
   };
 }
@@ -179,6 +191,20 @@ ThunkAction createLocalAccountCall(VoidCallback successCallback) {
   };
 }
 
+ThunkAction logoutCall() {
+  return (Store store) async {
+    store.dispatch(new LogoutRequestSuccess());
+  };
+}
+
+ThunkAction reLoginCall() {
+  return (Store store) async {
+    store.dispatch(new ReLogin());
+    store.dispatch(segmentTrackCall("Wallet: Login clicked"));
+  };
+}
+
+
 ThunkAction loginRequestCall(String countryCode, String phoneNumber,
     VoidCallback successCallback, VoidCallback failCallback) {
   return (Store store) async {
@@ -226,19 +252,6 @@ ThunkAction loginVerifyCall(
   };
 }
 
-ThunkAction logoutCall() {
-  return (Store store) async {
-    store.dispatch(new LogoutRequestSuccess());
-  };
-}
-
-ThunkAction reLoginCall() {
-  return (Store store) async {
-    store.dispatch(new ReLogin());
-    store.dispatch(segmentTrackCall("Wallet: Login clicked"));
-  };
-}
-
 ThunkAction syncContactsCall(List<Contact> contacts) {
   return (Store store) async {
     final logger = await AppFactory().getLogger('action');
@@ -282,8 +295,9 @@ ThunkAction syncContactsCall(List<Contact> contacts) {
       } else {
         store.dispatch(segmentTrackCall("Wallet: Contacts Permission Rejected"));
       }
-    } catch (e) {
+    } catch (e, s) {
       logger.severe('ERROR - syncContactsCall $e');
+      await AppFactory().reportError(e, s);
     }
   };
 }
@@ -294,8 +308,8 @@ ThunkAction identifyFirstTimeCall() {
     store.dispatch(enablePushNotifications());
     store.dispatch(segmentAliasCall(fullPhoneNumber));
     store.dispatch(segmentIdentifyCall(
-        fullPhoneNumber,
         new Map<String, dynamic>.from({
+          "Wallet Generated": true,
           "Phone Number": fullPhoneNumber,
           "Wallet Address": store.state.cashWalletState.walletAddress,
           "Account Address": store.state.userState.accountAddress,
@@ -308,7 +322,6 @@ ThunkAction identifyCall() {
   return (Store store) async {
     String fullPhoneNumber = formatPhoneNumber(store.state.userState.phoneNumber, store.state.userState.countryCode);
     store.dispatch(segmentIdentifyCall(
-        fullPhoneNumber,
         new Map<String, dynamic>.from({
           "Phone Number": fullPhoneNumber,
           "Wallet Address": store.state.cashWalletState.walletAddress,
@@ -342,19 +355,23 @@ ThunkAction setDisplayNameCall(String displayName) {
 ThunkAction create3boxAccountCall(accountAddress) {
   return (Store store) async {
     final logger = await AppFactory().getLogger('action');
-    final _webView = new InteractiveWebView();
-    String phoneNumber = formatPhoneNumber(store.state.userState.phoneNumber, store.state.userState.countryCode);
-    final html = '''<html>
-        <head></head>
-        <script>
-          window.pk = '0x${store.state.userState.privateKey}';
-          window.user = { name: '${store.state.userState.displayName}', account: '$accountAddress', phoneNumber: '$phoneNumber'};
-        </script>
-        <script src='https://3box.fuse.io/main.js'></script>
-        <body></body>
-      </html>''';
-    _webView.loadHTML(html, baseUrl: "https://beta.3box.io");
-    store.dispatch(segmentTrackCall("Wallet: Profile created in 3box"));
+    try {
+      final _webView = new InteractiveWebView();
+      String phoneNumber = formatPhoneNumber(store.state.userState.phoneNumber, store.state.userState.countryCode);
+      final html = '''<html>
+          <head></head>
+          <script>
+            window.pk = '0x${store.state.userState.privateKey}';
+            window.user = { name: '${store.state.userState.displayName}', account: '$accountAddress', phoneNumber: '$phoneNumber'};
+          </script>
+          <script src='https://3box.fuse.io/main.js'></script>
+          <body></body>
+        </html>''';
+      _webView.loadHTML(html, baseUrl: "https://beta.3box.io");
+      store.dispatch(segmentTrackCall("Wallet: Profile created in 3box"));
+    } catch (e, s) {
+      await AppFactory().reportError(e, s);
+    }
     try {
       Map publicData = {
         'account': accountAddress,
@@ -370,8 +387,9 @@ ThunkAction create3boxAccountCall(accountAddress) {
       };
       await api.saveUserToDb(user);
       logger.info('save user $accountAddress');
-    } catch (e) {
+    } catch (e, s) {
       logger.severe('user $accountAddress already saved');
+      await AppFactory().reportError(e, s);
     }
   };
 }

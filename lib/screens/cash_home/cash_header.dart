@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:fusecash/generated/i18n.dart';
-import 'package:fusecash/models/views/cash_wallet.dart';
+import 'package:fusecash/models/views/cash_header.dart';
 import 'package:fusecash/models/app_state.dart';
+import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/screens/send/send_amount_arguments.dart';
 import 'package:fusecash/utils/format.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 
 class CashHeader extends StatelessWidget {
-  CashHeader();
 
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, CashHeaderViewModel>(
         converter: CashHeaderViewModel.fromStore,
         builder: (_, viewModel) {
+          bool isWalletCreated = 'created' == viewModel.walletStatus;
           return Container(
             height: 260.0,
             alignment: Alignment.bottomLeft,
@@ -47,7 +48,7 @@ class CashHeader extends StatelessWidget {
               children: <Widget>[
                 InkWell(
                     onTap: () {
-                      Scaffold.of(context).openDrawer();
+                      if (isWalletCreated) Scaffold.of(context).openDrawer();
                     },
                     child: Padding(
                         padding:
@@ -183,8 +184,7 @@ class CashHeader extends StatelessWidget {
                                         accountAddress.split(':');
                                     if (parts.length == 2 &&
                                         parts[0] == 'fuse') {
-                                      Navigator.pushNamed(
-                                          context, '/SendAmount',
+                                      Router.navigator.pushNamed(Router.sendAmountScreen,
                                           arguments: SendAmountArguments(
                                               accountAddress: parts[1]));
                                     } else {
