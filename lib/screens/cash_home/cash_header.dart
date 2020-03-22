@@ -202,32 +202,6 @@ class CashHeader extends StatelessWidget {
                         ),
                         new Container(
                           child: Row(children: [
-                            // viewModel.isCommunityMember
-                            //     ? InkWell(
-                            //         child: SvgPicture.asset(
-                            //           'assets/images/winPoints.svg',
-                            //           width: 55,
-                            //           height: 55,
-                            //         ),
-                            //         onTap: () async {
-                            //           Navigator.push(
-                            //               context,
-                            //               new MaterialPageRoute(
-                            //                   builder: (context) =>
-                            //                       PrizeScreen()));
-                            //           // Router.navigator
-                            //           //     .pushNamed(Router.prizeScreen);
-                            //           await Segment.track(
-                            //               eventName: "User open prize page");
-                            //         },
-                            //       )
-                            // :
-                            SizedBox.shrink(),
-                            // viewModel.isCommunityMember
-                            //     ? SizedBox(
-                            //         width: 10,
-                            //       )
-                            //     : SizedBox.shrink(),
                             new FloatingActionButton(
                                 heroTag: 'cash_scanner',
                                 backgroundColor: const Color(0xFF292929),
