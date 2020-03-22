@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_segment/flutter_segment.dart';
+// import 'package:flutter_svg/svg.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/views/cash_header.dart';
 import 'package:fusecash/models/app_state.dart';
+// import 'package:fusecash/screens/cash_home/prize.dart';
 import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/screens/send/send_amount_arguments.dart';
 import 'package:fusecash/utils/format.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 
-class CashHeader extends StatelessWidget {
+scanFuseAddress() async {
+  try {
+    String accountAddress = await BarcodeScanner.scan();
+    List<String> parts = accountAddress.split(':');
+    if (parts.length == 2 && parts[0] == 'fuse') {
+      Router.navigator.pushNamed(Router.sendAmountScreen,
+          arguments: SendAmountArguments(
+              sendType: SendType.QR_ADDRESS, accountAddress: parts[1]));
+    } else {
+      print('Account address is not on Fuse');
+    }
+  } catch (e) {
+    print('ERROR - BarcodeScanner');
+  }
+}
 
+class CashHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, CashHeaderViewModel>(
         converter: CashHeaderViewModel.fromStore,
         builder: (_, viewModel) {
-          bool isWalletCreated = 'created' == viewModel.walletStatus;
           return Container(
             height: 260.0,
             alignment: Alignment.bottomLeft,
@@ -48,7 +65,7 @@ class CashHeader extends StatelessWidget {
               children: <Widget>[
                 InkWell(
                     onTap: () {
-                      if (isWalletCreated) Scaffold.of(context).openDrawer();
+                      Scaffold.of(context).openDrawer();
                     },
                     child: Padding(
                         padding:
@@ -64,7 +81,6 @@ class CashHeader extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 0.0),
                     child: new RichText(
                       text: new TextSpan(
-                        style: Theme.of(context).textTheme.title,
                         children: <TextSpan>[
                           new TextSpan(
                               text: I18n.of(context).hi,
@@ -74,7 +90,7 @@ class CashHeader extends StatelessWidget {
                                       Theme.of(context).textTheme.subhead.color,
                                   fontWeight: FontWeight.normal)),
                           new TextSpan(
-                              text: ' ' + viewModel.firstName(),
+                              text: ' ' + (viewModel?.firstName() ?? ''),
                               style: TextStyle(
                                   fontSize: 33,
                                   color:
@@ -100,11 +116,7 @@ class CashHeader extends StatelessWidget {
                             new Container(
                               child: Text(I18n.of(context).balance,
                                   style: TextStyle(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .subhead
-                                          .color,
-                                      fontSize: 12.0)),
+                                      color: Colors.white, fontSize: 12.0)),
                               padding: EdgeInsets.only(bottom: 6.0),
                             ),
                             Row(
@@ -159,6 +171,29 @@ class CashHeader extends StatelessWidget {
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       height: 0.0)),
+                                              // viewModel.isCommunityMember
+                                              //     ? new TextSpan(
+                                              //         text: ' (\$' +
+                                              //             calcValueInDollar(
+                                              //                 viewModel
+                                              //                     .community
+                                              //                     .tokenBalance,
+                                              //                 viewModel
+                                              //                     .community
+                                              //                     .token
+                                              //                     .decimals) +
+                                              //             ')',
+                                              //         style: new TextStyle(
+                                              //             fontSize: 15,
+                                              //             color:
+                                              //                 Theme.of(context)
+                                              //                     .colorScheme
+                                              //                     .secondary,
+                                              //             fontWeight:
+                                              //                 FontWeight.normal,
+                                              //             height: 0.0))
+                                              // :
+                                              new TextSpan(),
                                             ],
                                     ),
                                   ),
@@ -167,7 +202,34 @@ class CashHeader extends StatelessWidget {
                         ),
                         new Container(
                           child: Row(children: [
+                            // viewModel.isCommunityMember
+                            //     ? InkWell(
+                            //         child: SvgPicture.asset(
+                            //           'assets/images/winPoints.svg',
+                            //           width: 55,
+                            //           height: 55,
+                            //         ),
+                            //         onTap: () async {
+                            //           Navigator.push(
+                            //               context,
+                            //               new MaterialPageRoute(
+                            //                   builder: (context) =>
+                            //                       PrizeScreen()));
+                            //           // Router.navigator
+                            //           //     .pushNamed(Router.prizeScreen);
+                            //           await Segment.track(
+                            //               eventName: "User open prize page");
+                            //         },
+                            //       )
+                            // :
+                            SizedBox.shrink(),
+                            // viewModel.isCommunityMember
+                            //     ? SizedBox(
+                            //         width: 10,
+                            //       )
+                            //     : SizedBox.shrink(),
                             new FloatingActionButton(
+                                heroTag: 'cash_scanner',
                                 backgroundColor: const Color(0xFF292929),
                                 elevation: 0,
                                 child: Image.asset(
@@ -176,24 +238,7 @@ class CashHeader extends StatelessWidget {
                                   color:
                                       Theme.of(context).scaffoldBackgroundColor,
                                 ),
-                                onPressed: () async {
-                                  try {
-                                    String accountAddress =
-                                        await BarcodeScanner.scan();
-                                    List<String> parts =
-                                        accountAddress.split(':');
-                                    if (parts.length == 2 &&
-                                        parts[0] == 'fuse') {
-                                      Router.navigator.pushNamed(Router.sendAmountScreen,
-                                          arguments: SendAmountArguments(
-                                              accountAddress: parts[1]));
-                                    } else {
-                                      print('Account address is not on Fuse');
-                                    }
-                                  } catch (e) {
-                                    print('ERROR - BarcodeScanner');
-                                  }
-                                })
+                                onPressed: scanFuseAddress)
                           ]),
                         )
                       ],

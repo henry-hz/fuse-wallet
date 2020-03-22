@@ -1,13 +1,16 @@
+import 'dart:io';
+
+import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fusecash/models/community.dart';
 import 'package:fusecash/models/jobs/base.dart';
-import 'package:fusecash/models/transfer.dart';
+import 'package:fusecash/models/transactions/transfer.dart';
 import 'package:fusecash/redux/actions/cash_wallet_actions.dart';
 import 'package:fusecash/redux/actions/error_actions.dart';
-import 'package:fusecash/utils/contacts.dart';
+import 'package:fusecash/redux/actions/pro_mode_wallet_actions.dart';
 import 'package:fusecash/utils/format.dart';
 import 'package:interactive_webview/interactive_webview.dart';
 import 'package:redux/redux.dart';
@@ -17,6 +20,30 @@ import 'package:fusecash/services.dart';
 import 'package:fusecash/redux/state/store.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:fusecash/utils/phone.dart';
+import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class ActivateProMode {
+  ActivateProMode();
+}
+
+class SwitchWalletMode {
+  final bool isProMode;
+  SwitchWalletMode({this.isProMode});
+}
+
+class VerifyRequest {
+  final String verificationId;
+  final String verificationCode;
+  final GlobalKey<ScaffoldState> key;
+
+  VerifyRequest({@required this.verificationId, @required this.verificationCode, @required this.key});
+
+  @override
+  String toString() {
+    return 'VerifyRequest{verificationId: $verificationId, verificationCode: $verificationCode}';
+  }
+}
 
 class RestoreWalletSuccess {
   final List<String> mnemonic;
@@ -34,6 +61,17 @@ class CreateLocalAccountSuccess {
 
 class ReLogin {
   ReLogin();
+}
+
+class LoginRequest {
+  final String countryCode;
+  final String phoneNumber;
+  final PhoneCodeSent codeSent;
+  final PhoneVerificationCompleted verificationCompleted;
+  final PhoneVerificationFailed verificationFailed;
+  final PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout;
+
+  LoginRequest({@required this.countryCode, @required this.phoneNumber, @required this.codeSent, @required this.verificationCompleted, @required this.verificationFailed, @required this.codeAutoRetrievalTimeout });
 }
 
 class LoginRequestSuccess {
@@ -86,6 +124,16 @@ class BackupSuccess {
   BackupSuccess();
 }
 
+class SetCredentials {
+  PhoneAuthCredential credentials;
+  SetCredentials(this.credentials);
+}
+
+class SetVerificationId {
+  String verificationId;
+  SetVerificationId(this.verificationId);
+}
+
 class UpdateDisplayBalance {
   final int displayBalance;
   UpdateDisplayBalance(this.displayBalance);
@@ -96,36 +144,56 @@ class JustInstalled {
   JustInstalled(this.installedAt);
 }
 
-ThunkAction backupWalletCall() {
+class SetIsLoginRequest {
+  final bool isLoading;
+  SetIsLoginRequest({this.isLoading});
+}
+
+class SetIsVerifyRequest {
+  final bool isLoading;
+  SetIsVerifyRequest({this.isLoading});
+}
+
+class DeviceIdSuccess {
+  final String identifier;
+  DeviceIdSuccess(this.identifier);
+}
+
+ThunkAction backupWalletCall(VoidCallback successCb) {
   return (Store store) async {
     if (store.state.userState.backup) return;
     final logger = await AppFactory().getLogger('action');
     String communityAddres = store.state.cashWalletState.communityAddress;
     store.dispatch(BackupRequest());
-    dynamic response = await api.backupWallet(communityAddres);
-    Community community = store.state.cashWalletState.communities[communityAddres];
-    if (community.plugins.backupBonus != null && community.plugins.backupBonus.isActive) {
-      BigInt value = toBigInt(community.plugins.backupBonus.amount, community.token.decimals);
-      String walletAddress = store.state.cashWalletState.walletAddress;
-      dynamic jobId = response['job']['_id'];
-      logger.info('Job $jobId - sending backup bonus');
-      Transfer backupBonus = new Transfer(
-          from: DotEnv().env['FUNDER_ADDRESS'],
-          to: walletAddress,
-          text: 'You got a backup bonus!',
-          type: 'RECEIVE',
-          value: value,
-          status: 'PENDING',
-          jobId: jobId);
-      store.dispatch(AddTransaction(backupBonus));
+    try {
+      dynamic response = await api.backupWallet(communityAddres);
+      Community community = store.state.cashWalletState.communities[communityAddres];
+      if (community.plugins.backupBonus != null && community.plugins.backupBonus.isActive) {
+        BigInt value = toBigInt(community.plugins.backupBonus.amount, community.token.decimals);
+        String walletAddress = store.state.cashWalletState.walletAddress;
+        dynamic jobId = response['job']['_id'];
+        logger.info('Job $jobId - sending backup bonus');
+        Transfer backupBonus = new Transfer(
+            from: DotEnv().env['FUNDER_ADDRESS'],
+            to: walletAddress,
+            text: 'You got a backup bonus!',
+            type: 'RECEIVE',
+            value: value,
+            status: 'PENDING',
+            jobId: jobId);
+        store.dispatch(AddTransaction(backupBonus));
 
-      response['job']['arguments'] = {
-        'backupBonus': backupBonus,
-      };
-      response['job']['jobType'] = 'backup';
-
-      Job job = JobFactory.create(response['job']);
-      store.dispatch(AddJob(job));
+        response['job']['arguments'] = {
+          'backupBonus': backupBonus,
+        };
+        response['job']['jobType'] = 'backup';
+        Job job = JobFactory.create(response['job']);
+        store.dispatch(AddJob(job));
+        // Router.navigator.popUntil(ModalRoute.withName(Router.cashHomeScreen));
+        successCb();
+      }
+    } catch (e, s) {
+      successCb();
     }
   };
 }
@@ -140,8 +208,7 @@ ThunkAction backupSuccessCall(String txHash, transfer) {
   };
 }
 
-ThunkAction restoreWalletCall(
-    List<String> _mnemonic, VoidCallback successCallback) {
+ThunkAction restoreWalletCall(List<String> _mnemonic, VoidCallback successCallback) {
   return (Store store) async {
     final logger = await AppFactory().getLogger('action');
     try {
@@ -162,6 +229,34 @@ ThunkAction restoreWalletCall(
     } catch (e) {
       logger.severe('ERROR - restoreWalletCall $e');
       store.dispatch(new ErrorAction('Could not restore wallet'));
+    }
+  };
+}
+
+ThunkAction setDeviceId(bool reLogin) {
+  return (Store store) async {
+    final logger = await AppFactory().getLogger('action');
+    String identifier;
+    final DeviceInfoPlugin deviceInfoPlugin = new DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        var build = await deviceInfoPlugin.androidInfo;
+        identifier = build.androidId;  //UUID for Android
+      } else if (Platform.isIOS) {
+        var data = await deviceInfoPlugin.iosInfo;
+        identifier = data.identifierForVendor;  //UUID for iOS
+      }
+    } on Exception {
+      logger.severe('Failed to get platform version');
+    }
+    logger.info("device identifier: $identifier");
+    store.dispatch(new DeviceIdSuccess(identifier));
+    if (reLogin) {
+      final FirebaseUser currentUser = await firebaseAuth.currentUser();
+      final String accountAddress = store.state.userState.accountAddress;
+      IdTokenResult token = await currentUser.getIdToken();
+      String jwtToken = await api.login(token.token, accountAddress, identifier);
+      store.dispatch(new LoginVerifySuccess(jwtToken));
     }
   };
 }
@@ -204,54 +299,6 @@ ThunkAction reLoginCall() {
   };
 }
 
-
-ThunkAction loginRequestCall(String countryCode, String phoneNumber,
-    VoidCallback successCallback, VoidCallback failCallback) {
-  return (Store store) async {
-    final logger = await AppFactory().getLogger('action');
-    String phone = formatPhoneNumber(phoneNumber, countryCode);
-    try {
-      bool result = await api.loginRequest(phone);
-      if (result) {
-        store.dispatch(new LoginRequestSuccess(countryCode, phoneNumber, "", ""));
-        successCallback();
-        store.dispatch(segmentTrackCall("Wallet: user insert his phone number"));
-      } else {
-        store.dispatch(new ErrorAction('Could not login'));
-        failCallback();
-      }
-    } catch (e) {
-      logger.severe('ERROR - loginRequestCall $e');
-      store.dispatch(new ErrorAction('Could not login'));
-      failCallback();
-    }
-  };
-}
-
-ThunkAction loginVerifyCall(
-    String countryCode,
-    String phoneNumber,
-    String verificationCode,
-    String accountAddress,
-    VoidCallback successCallback,
-    VoidCallback failCallback) {
-  return (Store store) async {
-    final logger = await AppFactory().getLogger('action');
-    try {
-      String phone = formatPhoneNumber(phoneNumber, countryCode);
-
-      String jwtToken = await api.loginVerify(phone, verificationCode, accountAddress);
-      store.dispatch(new LoginVerifySuccess(jwtToken));
-      store.dispatch(segmentTrackCall("Wallet: verified phone number"));
-      successCallback();
-    } catch (e) {
-      logger.severe('ERROR - loginVerifyCall $e');
-      store.dispatch(new ErrorAction('Could not verify login'));
-      failCallback();
-    }
-  };
-}
-
 ThunkAction syncContactsCall(List<Contact> contacts) {
   return (Store store) async {
     final logger = await AppFactory().getLogger('action');
@@ -289,15 +336,9 @@ ThunkAction syncContactsCall(List<Contact> contacts) {
           partial = newPhones.take(limit).toList();
         }
       }
-      bool isPermitted = await Contacts.checkPermissions();
-      if (isPermitted) {
-        store.dispatch(segmentTrackCall("Wallet: Contacts Permission Granted"));
-      } else {
-        store.dispatch(segmentTrackCall("Wallet: Contacts Permission Rejected"));
-      }
     } catch (e, s) {
-      logger.severe('ERROR - syncContactsCall $e');
-      await AppFactory().reportError(e, s);
+      logger.severe('ERROR - syncContactsCall', e, s);
+      // await AppFactory().reportError(e, s);
     }
   };
 }
@@ -313,7 +354,8 @@ ThunkAction identifyFirstTimeCall() {
           "Phone Number": fullPhoneNumber,
           "Wallet Address": store.state.cashWalletState.walletAddress,
           "Account Address": store.state.userState.accountAddress,
-          "Display Name": store.state.userState.displayName
+          "Display Name": store.state.userState.displayName,
+          "Identifier": store.state.userState.identifier
         })));
   };
 }
@@ -326,7 +368,8 @@ ThunkAction identifyCall() {
           "Phone Number": fullPhoneNumber,
           "Wallet Address": store.state.cashWalletState.walletAddress,
           "Account Address": store.state.userState.accountAddress,
-          "Display Name": store.state.userState.displayName
+          "Display Name": store.state.userState.displayName,
+          "Identifier": store.state.userState.identifier
         })));
   };
 }
@@ -390,6 +433,24 @@ ThunkAction create3boxAccountCall(accountAddress) {
     } catch (e, s) {
       logger.severe('user $accountAddress already saved');
       await AppFactory().reportError(e, s);
+    }
+  };
+}
+
+ThunkAction activateProModeCall() {
+  return (Store store) async {
+    final logger = await AppFactory().getLogger('action');
+    store.dispatch(ActivateProMode());
+    store.dispatch(initWeb3ProMode());
+    try {
+      String foreign = DotEnv().env['MODE'] == 'production' ? 'mainnet' : 'ropsten';
+      bool deployForeignToken = store.state.userState.networks.contains(foreign);
+      if (!deployForeignToken) {
+        await api.createWalletOnForeign();
+      }
+    } catch (error, stackTrace) {
+      logger.severe('Error createWalletOnForeign', error);
+      await AppFactory().reportError(error, stackTrace);
     }
   };
 }

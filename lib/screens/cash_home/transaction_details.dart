@@ -2,14 +2,12 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fusecash/generated/i18n.dart';
-import 'package:fusecash/models/transfer.dart';
+import 'package:fusecash/models/transactions/transfer.dart';
 import 'package:fusecash/models/views/send_amount.dart';
 import 'package:fusecash/utils/transaction_row.dart';
 import 'package:fusecash/widgets/main_scaffold.dart';
 import 'package:fusecash/models/app_state.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-
-typedef OnSignUpCallback = Function(String countryCode, String phoneNumber);
 
 class TransactionDetailArguments {
   List<Widget> amount;
@@ -32,8 +30,8 @@ class TransactionDetailArguments {
 }
 
 class TransactionDetailsScreen extends StatefulWidget {
-  TransactionDetailsScreen({this.pageArgs});
   final TransactionDetailArguments pageArgs;
+  TransactionDetailsScreen({this.pageArgs});
   @override
   _TransactionDetailsScreenState createState() =>
       _TransactionDetailsScreenState();
@@ -49,13 +47,12 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen>
   @override
   Widget build(BuildContext context) {
     final TransactionDetailArguments args = this.widget.pageArgs;
-
     return new StoreConnector<AppState, SendAmountViewModel>(
+      distinct: true,
       converter: SendAmountViewModel.fromStore,
       builder: (_, viewModel) {
         return MainScaffold(
           withPadding: true,
-          titleFontSize: 15,
           title: I18n.of(context).transaction_details,
           children: <Widget>[
             Container(

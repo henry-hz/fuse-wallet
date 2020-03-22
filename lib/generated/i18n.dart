@@ -138,8 +138,8 @@ class I18n implements WidgetsLocalizations {
   String get fuse_studio => "You can switch to a new community by entering your Asset ID (available from the Fuse Studio) or scanning a QR code";
   /// "Enable Contacts Access"
   String get enable_contacts_access => "Enable Contacts Access";
-  /// "Your contacts will not be saved on our \n server and this action will not send  \n them any massages"
-  String get enable_text => "Your contacts will not be saved on our \n server and this action will not send  \n them any massages";
+  /// "Your contacts will not be saved on our \n server and this action will not send  \n them any messages"
+  String get enable_text => "Your contacts will not be saved on our \n server and this action will not send  \n them any messages";
   /// "Don't worry:"
   String get dont_worry => "Don't worry:";
   /// "Enable contact sync to send\n money to your phone contacts"
@@ -222,6 +222,10 @@ class I18n implements WidgetsLocalizations {
   String get settings => "Settings";
   /// "Home"
   String get home => "Home";
+  /// "Trade"
+  String get trade => "Trade";
+  /// "Assets and contracts"
+  String get assets_and_contracts => "Assets and contracts";
 }
 
 class _I18n_en_US extends I18n {

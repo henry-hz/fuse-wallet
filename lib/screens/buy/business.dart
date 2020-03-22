@@ -8,7 +8,6 @@ import 'package:fusecash/models/token.dart';
 import 'package:fusecash/screens/routes.gr.dart';
 import 'package:fusecash/screens/send/send_amount_arguments.dart';
 import 'package:fusecash/utils/transaction_row.dart';
-import 'package:fusecash/widgets/bottombar.dart';
 import 'package:fusecash/widgets/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,18 +20,17 @@ _launchUrl(String urlToLaunch) async {
   }
 }
 
-class BusinessArguments {
+class BusinessPageArguments {
   final Business business;
   final Token token;
   final String communityAddress;
 
-  BusinessArguments({this.token, this.business, this.communityAddress});
+  BusinessPageArguments({this.token, this.business, this.communityAddress});
 }
 
 class BusinessPage extends StatefulWidget {
-  BusinessPage({this.pageArg});
-
-  final BusinessArguments pageArg;
+  final BusinessPageArguments pageArgs;
+  BusinessPage({this.pageArgs});
 
   @override
   _BusinessPageState createState() => _BusinessPageState();
@@ -53,7 +51,7 @@ class _BusinessPageState extends State<BusinessPage> {
 
   @override
   Widget build(BuildContext context) {
-    final BusinessArguments businessArgs = this.widget.pageArg;
+    final BusinessPageArguments businessArgs = this.widget.pageArgs;
     String coverPhotoUrl = getCoverPhotoUrl(businessArgs.business, businessArgs.communityAddress);
     String imageUrl = getImageUrl(businessArgs.business, businessArgs.communityAddress);
 
@@ -94,7 +92,7 @@ class _BusinessPageState extends State<BusinessPage> {
                               left: 18.0,
                               child: InkWell(
                                 onTap: () {
-                                  Router.navigator.pop();
+                                  Navigator.of(context).pop();
                                 },
                                 child: SvgPicture.asset(
                                     'assets/images/arrow_back_business.svg',
@@ -260,11 +258,6 @@ class _BusinessPageState extends State<BusinessPage> {
                                                       .secondary),
                                             ),
                                           ),
-                                          // Text('',
-                                          //     style: TextStyle(
-                                          //         color: Theme.of(context)
-                                          //             .colorScheme
-                                          //             .secondary)),
                                         ],
                                       )
                                     ],
@@ -308,7 +301,7 @@ class _BusinessPageState extends State<BusinessPage> {
                               onPressed: () {
                                 Router.navigator.pushNamed(Router.sendAmountScreen,
                                     arguments: SendAmountArguments(
-                                      isBusiness: true,
+                                      sendType: SendType.BUSINESS,
                                       accountAddress:
                                           businessArgs.business.account,
                                       avatar: NetworkImage(
@@ -324,10 +317,10 @@ class _BusinessPageState extends State<BusinessPage> {
                     ),
                   ]),
             ),
-            Expanded(
-              flex: 1,
-              child: bottomBar(context),
-            )
+            // Expanded(
+            //   flex: 1,
+            //   child: bottomBar(context),
+            // )
           ],
         ),
       ),
