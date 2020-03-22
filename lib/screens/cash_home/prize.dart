@@ -128,7 +128,6 @@ class _PrizeScreenState extends State<PrizeScreen> {
           return new MainScaffold(
               backgroundColor: Colors.white,
               title: '',
-              footer: null, // bottomBar(context),
               withPadding: false,
               children: <Widget>[
                 Padding(padding: EdgeInsets.only(top: 20), child: Preloader())
@@ -137,7 +136,6 @@ class _PrizeScreenState extends State<PrizeScreen> {
           return new MainScaffold(
               backgroundColor: Colors.white,
               title: '',
-              footer: null, // bottomBar(context),
               withPadding: false,
               children: <Widget>[
                 Padding(
@@ -160,7 +158,6 @@ class _PrizeScreenState extends State<PrizeScreen> {
           return MainScaffold(
             backgroundColor: Colors.white,
             title: '',
-            footer: null, // bottomBar(context),
             withPadding: false,
             children: <Widget>[
               Container(

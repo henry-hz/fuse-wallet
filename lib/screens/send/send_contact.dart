@@ -460,7 +460,6 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
                 automaticallyImplyLeading: false,
                 withPadding: false,
                 title: I18n.of(context).send_to,
-                footer: null, // showFooter ? bottomBar(context) : null,
                 sliverList: _buildPageList(viewModel),
                 children: <Widget>[]);
           } else {
@@ -468,7 +467,6 @@ class _SendToContactScreenState extends State<SendToContactScreen> {
                 automaticallyImplyLeading: false,
                 withPadding: false,
                 title: I18n.of(context).send_to,
-                footer: null, // showFooter ? bottomBar(context) : null,
                 sliverList: _buildPageList(viewModel),
                 children: <Widget>[
                   Column(

@@ -16,7 +16,7 @@ class DoneBackup extends StatelessWidget {
       converter: BackupViewModel.fromStore,
       builder: (_, viewModal) => MainScaffold(
           withPadding: false,
-          footer: null, // bottomBar(context),
+          footer: null,
           title: I18n.of(context).back_up,
           children: <Widget>[
             Container(

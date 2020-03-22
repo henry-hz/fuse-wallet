@@ -58,21 +58,6 @@ Widget bottomBar(BuildContext context) {
                   //   redirect(context, Router.sendToContactScreen);
                   // }
                 }),
-                // viewModel.isDefaultCommunity
-                //     ? bottomBarItem(
-                //         isCurrentRoute(context, Router.pincodeScreen)
-                //             ? "daipoints_selected.svg"
-                //             : "daipoints.svg",
-                //         I18n.of(context).dai_points, () {
-                //         // if (isHomePage) {
-                //         //   redirect(context, Router.daiExplainedScreen);
-                //         // } else {
-                //         //   Navigator.popUntil(
-                //         //       context, ModalRoute.withName(Router.cashHomeScreen));
-                //         //   redirect(context, Router.daiExplainedScreen);
-                //         // }
-                //       })
-                //     :
                 bottomBarItem(
                     isCurrentRoute(context, Router.pincodeScreen)
                         ? "buy_selected.svg"

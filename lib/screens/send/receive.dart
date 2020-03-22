@@ -21,7 +21,6 @@ class ReceiveScreen extends StatelessWidget {
           return MainScaffold(
             title: I18n.of(context).receive,
             automaticallyImplyLeading: false,
-            footer: null, // bottomBar(context),
             withPadding: false,
             children: <Widget>[
               Container(

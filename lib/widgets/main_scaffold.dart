@@ -9,14 +9,15 @@ class MainScaffold extends StatelessWidget {
       List<Widget> sliverList,
       double titleFontSize,
       bool automaticallyImplyLeading,
+      Widget footer,
       this.key,
-      this.footer,
       this.withPadding,
       this.backgroundColor,
       this.expandedHeight})
       : sliverList = sliverList ?? new List<Widget>(),
         children = children ?? new List<Widget>(),
         titleFontSize = titleFontSize ?? 15,
+        footer = footer,
         automaticallyImplyLeading = automaticallyImplyLeading ?? true,
         actions = actions ?? new List<Widget>();
 

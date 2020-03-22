@@ -6,12 +6,10 @@ import 'package:fusecash/models/app_state.dart';
 
 class BottomBarViewModel extends Equatable {
   final String communityAddres;
-  // final bool isDefaultCommunity;
   final List<Contact> contacts;
   final bool isProModeActivate;
   BottomBarViewModel(
       {this.communityAddres,
-      // this.isDefaultCommunity,
       this.contacts,
       this.isProModeActivate});
 

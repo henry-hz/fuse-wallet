@@ -91,7 +91,6 @@ class _SwitchCommunityScreenState extends State<SwitchCommunityScreen> {
         builder: (_, viewModel) {
           return MainScaffold(
             title: I18n.of(context).switch_community,
-            footer: null, // bottomBar(context),
             withPadding: false,
             children: <Widget>[
               Container(
