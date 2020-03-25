@@ -1,4 +1,4 @@
-package io.fuse.fusecash
+package io.wepy.wallet
 
 import android.os.Bundle
 

@@ -26,7 +26,7 @@ class _ProModeScaffoldState extends State<ProModeScaffold> {
     rateMyApp = RateMyApp(
       minDays: 0,
       minLaunches: 0,
-      googlePlayIdentifier: 'io.fuse.fusecash',
+      googlePlayIdentifier: 'io.wepy.wallet',
       appStoreIdentifier: '1491783654',
     );
     rateMyApp.init().then((_) {
