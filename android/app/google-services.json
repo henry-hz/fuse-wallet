@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "764911300712-fcb7aejrnm3d5lvr2d9eopakf0uijbo4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.wepy.wallet",
+            "certificate_hash": "2bf17d4bcbb700e60b7cac115f88b93f6ac26d14"
+          }
+        },
+        {
           "client_id": "764911300712-5r2u9bklkc16if460p53u1u9feb2001p.apps.googleusercontent.com",
           "client_type": 3
         }
