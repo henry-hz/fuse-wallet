@@ -71,7 +71,7 @@ Middleware<AppState> _createVerifyPhoneNumberMiddleware() {
         final String accountAddress = store.state.userState.accountAddress;
         final String identifier = store.state.userState.identifier;
         IdTokenResult token = await user.getIdToken();
-        String jwtToken = await api.login(token.token, accountAddress, identifier, appName: 'Wepy');
+        String jwtToken = await api.login(token.token, accountAddress, identifier, appName: 'WEPY');
         store.dispatch(new LoginVerifySuccess(jwtToken));
         store.dispatch(SetIsVerifyRequest(isLoading: false));
         store.dispatch(segmentTrackCall("Wallet: verified phone number"));
