@@ -1,0 +1,564 @@
+Using hardware rendering with device Android SDK built for x86. If you get graphics artifacts, consider enabling software rendering with "--enable-software-rendering".
+Launching lib/main.dart on Android SDK built for x86 in debug mode...
+Running Gradle task 'assembleDebug'...                              4.1s
+✓ Built build/app/outputs/apk/debug/app-debug.apk.
+I/FlutterBranchSDK( 4676): Branch SDK in DebugMode
+I/flutter ( 4676): loading .env_qa config file
+I/FA      ( 4676): Tag Manager is not found and thus will not be used
+Syncing files to device Android SDK built for x86...            
+W/o.fuse.fusecas( 4676): Accessing hidden method Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J (greylist, reflection, allowed)
+
+W/o.fuse.fusecas( 4676): Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (greylist, reflection, allowed)
+
+W/o.fuse.fusecas( 4676): Accessing hidden field Landroid/view/accessibility/AccessibilityNodeInfo;->mChildNodeIds:Landroid/util/LongArray; (greylist, reflection, allowed)
+
+W/o.fuse.fusecas( 4676): Accessing hidden method Landroid/util/LongArray;->get(I)J (greylist, reflection, allowed)
+
+D/HostConnection( 4676): HostConnection::get() New Host Connection established 0xd8623090, tid 4705
+
+D/HostConnection( 4676): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_gles_max_version_2 
+
+W/OpenGLRenderer( 4676): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+
+D/EGL_emulation( 4676): eglCreateContext: 0xe3c3ebe0: maj 2 min 0 rcv 2
+
+D/HostConnection( 4676): HostConnection::get() New Host Connection established 0xc427bdc0, tid 4709
+
+D/HostConnection( 4676): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_gles_max_version_2 
+
+D/EGL_emulation( 4676): eglCreateContext: 0xe3d400c0: maj 2 min 0 rcv 2
+
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3c3ebe0: ver 2 0 (tinfo 0xc3dd22e0)
+
+W/Gralloc3( 4676): mapper 3.x is not supported
+
+D/HostConnection( 4676): createUnique: call
+
+D/HostConnection( 4676): createUnique: call
+
+D/HostConnection( 4676): HostConnection::get() New Host Connection established 0xc427bf50, tid 4705
+
+D/HostConnection( 4676): HostConnection::get() New Host Connection established 0xc427bd70, tid 4709
+
+D/HostConnection( 4676): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_gles_max_version_2 
+
+D/eglCodecCommon( 4676): allocate: Ask for block of size 0x1000
+
+D/eglCodecCommon( 4676): allocate: ioctl allocate returned offset 0x3ff805000 size 0x2000
+
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3d400c0: ver 2 0 (tinfo 0xd8567a50)
+
+D/HostConnection( 4676): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_gles_max_version_2 
+
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3c3ebe0: ver 2 0 (tinfo 0xc3dd22e0)
+
+I/BranchSDK( 4676): posting to https://api2.branch.io/v1/open
+
+I/BranchSDK( 4676): Post value = {"device_fingerprint_id":"738718691621738931","identity_id":"765161479389681403","hardware_id":"53d43c0c-5545-4c35-9dcb-ae308c0dea1d","is_hardware_id_real":false,"brand":"Google","model":"Android SDK built for x86","screen_dpi":420,"screen_height":1794,"screen_width":1080,"wifi":true,"ui_mode":"UI_MODE_TYPE_NORMAL","os":"Android","os_version":29,"cpu_type":"i686","build":"sdk_gphone_x86-userdebug 10 QSR1.191030.002 5978551 dev-keys","locale":"en_US","connection_type":"wifi","os_version_android":"10","country":"US","language":"en","local_ip":"10.0.2.15","app_version":"1.1.18","facebook_app_link_checked":false,"is_referrable":0,"debug":true,"update":1,"latest_install_time":1583666935008,"latest_update_time":1583666935008,"first_install_time":1583666935008,"previous_update_time":1583666935008,"environment":"FULL_APP","cd":{"mv":"-1","pn":"io.wepy.wallet"},"metadata":{},"lat_val":0,"google_advertising_id":"7236862e-a8e5-42d4-b3cc-6df4db19a83d","advertising_ids":{"aaid":"7236862e-a8e5-42d4-b3cc-6df4db19a83d"},"instrumentation":{"v1\/open-qwt":"0"},"sdk":"android4.3.1","branch_key":"key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr"}
+
+I/flutter ( 4676): Persistor debug: Starting load...
+
+I/flutter ( 4676): Persistor debug: Loading from storage
+
+I/flutter ( 4676): Persistor debug: Running load raw transformations
+
+I/flutter ( 4676): Persistor debug: Deserializing
+
+D/NetworkSecurityConfig( 4676): No Network Security Config specified, using platform default
+
+I/flutter ( 4676): Persistor debug: Running load transformations
+
+I/flutter ( 4676): Persistor debug: Done loading!
+
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/BranchSDK( 4676): returned {"session_id":"765161606643843963","identity_id":"765161479389681403","link":"https://app.fuse.io/a/key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr?%24identity_id=765161479389681403","data":"{\"+clicked_branch_link\":false,\"+is_first_session\":false}","device_fingerprint_id":"738718691621738931"}
+
+D/FlutterBranchSDK( 4676): BranchReferralInitListener - params: {"+clicked_branch_link":false,"+is_first_session":false}
+
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3d400c0: ver 2 0 (tinfo 0xd8567a50)
+
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: no JWT[0m
+
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: mnemonic: window champion rely occur cat stadium mesh behave chicken bachelor system cushion[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: create new wallet[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: compute pk[0m
+
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+W/IInputConnectionWrapper( 4676): getTextBeforeCursor on inactive InputConnection
+
+W/IInputConnectionWrapper( 4676): getSelectedText on inactive InputConnection
+
+W/IInputConnectionWrapper( 4676): getTextAfterCursor on inactive InputConnection
+
+I/flutter ( 4676): Persistor debug: Starting save...
+
+I/flutter ( 4676): Persistor debug: Running save transformations
+
+I/flutter ( 4676): Persistor debug: Serializing
+
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+
+I/flutter ( 4676): Persistor debug: Saving to storage
+
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+
+I/flutter ( 4676): Persistor debug: Done saving!
+
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: initWeb3. privateKey: 81ead8d2b564ed967a25de8244563cb9e6c21d9da70de88e062fc433e85dadf6[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: Create new wallet[0m
+
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: privateKey: 81ead8d2b564ed967a25de8244563cb9e6c21d9da70de88e062fc433e85dadf6[0m
+
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+Syncing files to device Android SDK built for x86...             7,255ms (!)
+
+🔥  To hot reload changes while running, press "r". To hot restart (and rebuild state), press "R".
+An Observatory debugger and profiler on Android SDK built for x86 is available at: http://127.0.0.1:35249/EVJjPOk8jnc=/
+For a more detailed help message, press "h". To detach, press "d"; to quit, press "q".
+I/flutter ( 4676): POST v2/login/request {phoneNumber: +‎‎551155555555}
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: user insert his phone number[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): POST v2/login/verify {phoneNumber: +‎‎551155555555, code: 111111, accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62}
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: verified phone number[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 1 line
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 5 lines
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 7 lines
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 7 lines
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: display name added[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: branch listening.[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: createAccountWalletCall[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: createAccountWalletCall[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Got link data: {+clicked_branch_link: false, +is_first_session: false}[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: createAccountWalletCall[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 7 lines
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): POST v2/wallets null
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): POST v2/wallets null
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): POST v2/wallets null
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: createAccountWalletCall[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): response: 400, Bad Request
+I/flutter ( 4676): [38;5;196m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;196m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:139:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;196m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;196m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;196m│ ⛔ [SEVERE] action: ERROR - createAccountWalletCall Error! status: 400, reason: Bad Request[0m
+I/flutter ( 4676): [38;5;196m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): response: 400, Bad Request
+I/flutter ( 4676): [38;5;196m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;196m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:139:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;196m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;196m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;196m│ ⛔ [SEVERE] action: ERROR - createAccountWalletCall Error! status: 400, reason: Bad Request[0m
+I/flutter ( 4676): [38;5;196m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): POST v2/wallets null
+I/flutter ( 4676): response: 400, Bad Request
+I/flutter ( 4676): [38;5;196m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;196m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:139:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;196m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;196m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;196m│ ⛔ [SEVERE] action: ERROR - createAccountWalletCall Error! status: 400, reason: Bad Request[0m
+I/flutter ( 4676): [38;5;196m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): GET v2/wallets
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): PUT v1/profiles/0xa804e58175ab566338f277c3a618e55ab4dc0c62 {publicData: {account: 0xa804e58175ab566338f277c3a618e55ab4dc0c62, name: James Bond}}
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 2 lines
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+D/HostConnection( 4676): HostConnection::get() New Host Connection established 0xb73e7760, tid 5002
+D/HostConnection( 4676): HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_async_unmap_buffer GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_gles_max_version_2 
+E/chromium( 4676): [ERROR:gl_surface_egl.cc(342)] eglChooseConfig failed with error EGL_SUCCESS
+W/cr_media( 4676): Requires BLUETOOTH permission
+D/EGL_emulation( 4676): eglCreateContext: 0xaf312460: maj 2 min 0 rcv 2
+D/EGL_emulation( 4676): eglMakeCurrent: 0xaf312460: ver 2 0 (tinfo 0xb73d0b60)
+E/chromium( 4676): [ERROR:gl_surface_egl.cc(342)] eglChooseConfig failed with error EGL_SUCCESS
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/VideoCapabilities( 4676): Unsupported profile 4 for video/mp4v-es
+W/cr_MediaCodecUtil( 4676): HW encoder for video/avc is not available on this device.
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): PUT v2/wallets/token/0x032BB213599c2E7acA575Ba44cd08BD421e7bc05 {firebaseToken: dTxr23kaIcs:APA91bElCiWUJfvXw3-tqOGuakLAV1UP7rgt9Ilr433F2IK7jXeUO26lJSx3fXPBQKnyILff5lE47cPLUO-WK3_ovnx8eO6RuW6kQZtKICXQ_hNZvRYkKFw05DboTCKfrpgfQPDNhHyL}
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 4 lines
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 4 lines
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 4 lines
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Alias - +‎‎551155555555[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: fullPhoneNumber: +‎‎551155555555[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Identify - +‎‎551155555555[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: Profile created in 3box[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: Wallet Generated[0m
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): POST v2/users {accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62, email: wallet-user@fuse.io, provider: HDWallet, subscribe: false, source: wallet-v2}
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Firebase messaging token dTxr23kaIcs:APA91bElCiWUJfvXw3-tqOGuakLAV1UP7rgt9Ilr433F2IK7jXeUO26lJSx3fXPBQKnyILff5lE47cPLUO-WK3_ovnx8eO6RuW6kQZtKICXQ_hNZvRYkKFw05DboTCKfrpgfQPDNhHyL[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chatty  ( 4676): uid=10165(io.wepy.wallet) 1.ui identical 4 lines
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+D/EGL_emulation( 4676): eglCreateContext: 0xdbb1b020: maj 2 min 0 rcv 2
+D/EGL_emulation( 4676): eglMakeCurrent: 0xdbb1b020: ver 2 0 (tinfo 0xb73d0b60)
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: save user 0xa804e58175ab566338f277c3a618e55ab4dc0c62[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: community fetched for 0xafd5974e120f69724c5fcfc897d7ab236b225b5a[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v1/communities/0xafd5974e120f69724c5fcfc897d7ab236b225b5a/0x032BB213599c2E7acA575Ba44cd08BD421e7bc05
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: token 0x26a97484f9622f4207a2ba78c07e0a753bfd8bdd (PIX) fetched for 0xafd5974e120f69724c5fcfc897d7ab236b225b5a[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): GET v1/metadata/QmVuxJw3N3phBW4PGDw5nEEmvBxZZc7sys3RhuDw7zVsFa
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Start Transfers Fetching Call[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: Switch Community[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): Persistor debug: Done saving!
+I/chromium( 4676): [INFO:CONSOLE(109)] "Invalid asm.js: Unexpected token", source: https://3box.fuse.io/main.js (109)
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Identify - +‎‎551155555555[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/flutter ( 4676): block: 3785089
+I/flutter ( 4676): timestamp: 1583667009741
+I/flutter ( 4676): nonce: 0x0000000000000000000000000039c181000000000000000000000170b9e8d8cd
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/flutter ( 4676): encodedData: 0xe5490e4c000000000000000000000000032bb213599c2e7aca575ba44cd08bd421e7bc05000000000000000000000000afd5974e120f69724c5fcfc897d7ab236b225b5a
+I/flutter ( 4676): input: 0x1900E47204f722F1B0a1113C1fBAd772626A9621E61E032BB213599c2E7acA575Ba44cd08BD421e7bc050000000000000000000000000000000000000000000000000000000000000000e5490e4c000000000000000000000000032bb213599c2e7aca575ba44cd08bd421e7bc05000000000000000000000000afd5974e120f69724c5fcfc897d7ab236b225b5a0000000000000000000000000039c181000000000000000000000170b9e8d8cd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aae60
+I/flutter ( 4676): hash: 86d591b668c94b86ac8dd663ca36b92130699016db5f0d01cabcf142393451c3
+I/flutter ( 4676): signing on message with accountAddress: 0xa804e58175ab566338f277c3a618e55ab4dc0c62
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/flutter ( 4676): POST v2/relay {walletAddress: 0x032BB213599c2E7acA575Ba44cd08BD421e7bc05, methodData: 0xe5490e4c000000000000000000000000032bb213599c2e7aca575ba44cd08bd421e7bc05000000000000000000000000afd5974e120f69724c5fcfc897d7ab236b225b5a, nonce: 0x0000000000000000000000000039c181000000000000000000000170b9e8d8cd, gasPrice: 0, gasLimit: 700000, signature: 0xc75972e82431be3a28a983bf653efc9a456c3754ae2972f7c01a3706b23f6db17394601e68b859fe6e0944a3e2ab84fe85609187e1b92ebe69349f8b1d4b9b8d1c, walletModule: CommunityManager}
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): Found 0 token transfers
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): Persistor debug: Done saving!
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(109)] "Swarm listening on", source: https://3box.fuse.io/main.js (109)
+I/flutter ( 4676): GET v2/jobs/5e64d741228d0f001283026d
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] Job: JoinCommunityJob not done[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "USER interval", source: https://3box.fuse.io/main.js (185)
+I/chromium( 4676): [INFO:CONSOLE(185)] "3box account created!", source: https://3box.fuse.io/main.js (185)
+I/flutter ( 4676): GET v2/jobs/5e64d741228d0f001283026d
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] Job: JoinCommunityJob not done[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/jobs/5e64d741228d0f001283026d
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] Job: JoinCommunityJob not done[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/jobs/5e64d741228d0f001283026d
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] Job: JoinCommunityJob not done[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): GET v2/jobs/5e64d741228d0f001283026d
+I/flutter ( 4676): response: 200, OK
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] Job: JoinCommunityJob FAILED[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Track - Wallet: job failed[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3c3ebe0: ver 2 0 (tinfo 0xc3dd22e0)
+I/BranchSDK( 4676): posting to https://api2.branch.io/v1/close
+I/BranchSDK( 4676): Post value = {"device_fingerprint_id":"738718691621738931","identity_id":"765161479389681403","session_id":"765161606643843963","app_version":"1.1.18","hardware_id":"eca7dbd0-e4ec-4bb8-8329-255c3b1097b1","is_hardware_id_real":false,"brand":"Google","model":"Android SDK built for x86","screen_dpi":420,"screen_height":1794,"screen_width":1080,"wifi":true,"ui_mode":"UI_MODE_TYPE_NORMAL","os":"Android","os_version":29,"country":"US","language":"en","local_ip":"10.0.2.15","metadata":{},"lat_val":0,"google_advertising_id":"7236862e-a8e5-42d4-b3cc-6df4db19a83d","advertising_ids":{"aaid":"7236862e-a8e5-42d4-b3cc-6df4db19a83d"},"instrumentation":{"v1\/close-qwt":"1","v1\/open-brtt":"331"},"sdk":"android4.3.1","branch_key":"key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr"}
+I/BranchSDK( 4676): returned {}
+D/EGL_emulation( 4676): eglCreateContext: 0xe3d40180: maj 2 min 0 rcv 2
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3d40180: ver 2 0 (tinfo 0xd8567a50)
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3c3ebe0: ver 2 0 (tinfo 0xc3dd22e0)
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3d40180: ver 2 0 (tinfo 0xd8567a50)
+I/BranchSDK( 4676): posting to https://api2.branch.io/v1/open
+I/BranchSDK( 4676): Post value = {"device_fingerprint_id":"738718691621738931","identity_id":"765161479389681403","hardware_id":"7c52d1fc-e936-4ee0-9d0b-793bcdf0b795","is_hardware_id_real":false,"brand":"Google","model":"Android SDK built for x86","screen_dpi":420,"screen_height":1794,"screen_width":1080,"wifi":true,"ui_mode":"UI_MODE_TYPE_NORMAL","os":"Android","os_version":29,"cpu_type":"i686","build":"sdk_gphone_x86-userdebug 10 QSR1.191030.002 5978551 dev-keys","locale":"en_US","connection_type":"wifi","os_version_android":"10","country":"US","language":"en","local_ip":"10.0.2.15","app_version":"1.1.18","facebook_app_link_checked":false,"is_referrable":0,"debug":true,"update":1,"latest_install_time":1583666935008,"latest_update_time":1583666935008,"first_install_time":1583666935008,"previous_update_time":1583666935008,"environment":"FULL_APP","cd":{"mv":"-1","pn":"io.wepy.wallet"},"metadata":{},"lat_val":0,"google_advertising_id":"7236862e-a8e5-42d4-b3cc-6df4db19a83d","advertising_ids":{"aaid":"7236862e-a8e5-42d4-b3cc-6df4db19a83d"},"instrumentation":{"v1\/close-brtt":"252","v1\/open-qwt":"0"},"sdk":"android4.3.1","branch_key":"key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr"}
+I/BranchSDK( 4676): returned {"session_id":"765161860559037221","identity_id":"765161479389681403","link":"https://app.fuse.io/a/key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr?%24identity_id=765161479389681403","data":"{\"+clicked_branch_link\":false,\"+is_first_session\":false}","device_fingerprint_id":"738718691621738931"}
+D/FlutterBranchSDK( 4676): BranchReferralInitListener - params: {"+clicked_branch_link":false,"+is_first_session":false}
+I/flutter ( 4676): [38;5;199m┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+I/flutter ( 4676): Persistor debug: Starting save...
+I/flutter ( 4676): Persistor debug: Running save transformations
+I/flutter ( 4676): Persistor debug: Serializing
+I/flutter ( 4676): Persistor debug: Running save raw transformations
+I/flutter ( 4676): Persistor debug: Saving to storage
+I/flutter ( 4676): [38;5;199m│ #0   AppFactory.getLogger.() (package:fusecash/redux/state/store.dart:129:22)
+I/flutter ( 4676): [38;5;199m│ #1   _rootRunUnary (dart:async/zone.dart:1134:38)
+I/flutter ( 4676): Persistor debug: Done saving!
+I/flutter ( 4676): [38;5;199m├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄[0m
+I/flutter ( 4676): [38;5;199m│ 👾 [INFO] action: Got link data: {+clicked_branch_link: false, +is_first_session: false}[0m
+I/flutter ( 4676): [38;5;199m└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+D/EGL_emulation( 4676): eglMakeCurrent: 0xe3c3ebe0: ver 2 0 (tinfo 0xc3dd22e0)
+I/BranchSDK( 4676): posting to https://api2.branch.io/v1/close
+I/BranchSDK( 4676): Post value = {"device_fingerprint_id":"738718691621738931","identity_id":"765161479389681403","session_id":"765161860559037221","app_version":"1.1.18","hardware_id":"886ae71c-ce91-4715-ad1e-e62321fb2245","is_hardware_id_real":false,"brand":"Google","model":"Android SDK built for x86","screen_dpi":420,"screen_height":1794,"screen_width":1080,"wifi":true,"ui_mode":"UI_MODE_TYPE_NORMAL","os":"Android","os_version":29,"country":"US","language":"en","local_ip":"10.0.2.15","metadata":{},"lat_val":0,"google_advertising_id":"7236862e-a8e5-42d4-b3cc-6df4db19a83d","advertising_ids":{"aaid":"7236862e-a8e5-42d4-b3cc-6df4db19a83d"},"instrumentation":{"v1\/close-qwt":"0","v1\/open-brtt":"283"},"sdk":"android4.3.1","branch_key":"key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr"}
+I/BranchSDK( 4676): returned {}
+Lost connection to device.

@@ -1,0 +1,26 @@
+Alias name: android_alias
+Creation date: Apr 2, 2020
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Issuer: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Serial number: 7ac9d83f
+Valid from: Thu Apr 02 12:23:47 IDT 2020 until: Mon Aug 19 12:23:47 IDT 2047
+Certificate fingerprints:
+         SHA1: 5C:BF:41:23:D3:D6:B5:99:F9:8E:71:81:EA:D3:FA:46:52:3F:B1:57
+         SHA256: 25:DA:AC:31:DB:4B:0C:AE:0F:E4:B1:AB:FE:6E:E6:33:9D:4B:11:6B:E0:9F:05:6D:DA:B0:33:AD:CF:6A:CE:5C
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: A2 1C BD 44 FA 80 62 95   0F C1 A1 7C C4 35 D1 A9  ...D..b......5..
+0010: 39 E8 EA DA                                        9...
+]
+]
+

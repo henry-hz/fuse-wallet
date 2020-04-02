@@ -1,8 +1,8 @@
 import 'package:fusecash/models/community.dart';
 import 'package:fusecash/models/jobs/base.dart';
-import 'package:fusecash/models/transaction.dart';
-import 'package:fusecash/models/transactions.dart';
-import 'package:fusecash/models/transfer.dart';
+import 'package:fusecash/models/transactions/transaction.dart';
+import 'package:fusecash/models/transactions/transactions.dart';
+import 'package:fusecash/models/transactions/transfer.dart';
 import 'package:fusecash/redux/actions/cash_wallet_actions.dart';
 import 'package:fusecash/redux/actions/user_actions.dart';
 import 'package:fusecash/models/cash_wallet_state.dart';
@@ -11,12 +11,11 @@ import 'package:redux/redux.dart';
 final cashWalletReducers = combineReducers<CashWalletState>([
   TypedReducer<CashWalletState, SetDefaultCommunity>(_setDefaultCommunity),
   TypedReducer<CashWalletState, InitWeb3Success>(_initWeb3Success),
-  TypedReducer<CashWalletState, GetWalletAddressSuccess>(
-      _getWalletAddressSuccess),
+  TypedReducer<CashWalletState, GetWalletAddressesSuccess>(
+      _getWalletAddressesSuccess),
   TypedReducer<CashWalletState, CreateAccountWalletRequest>(
       _createAccountWalletRequest),
-  TypedReducer<CashWalletState, CreateAccountWalletSuccess>(
-      _createAccountWalletSuccess),
+  TypedReducer<CashWalletState, CreateAccountWalletSuccess>(_createAccountWalletSuccess),
   TypedReducer<CashWalletState, GetTokenBalanceSuccess>(
       _getTokenBalanceSuccess),
   TypedReducer<CashWalletState, SendTokenSuccess>(_sendTokenSuccess),
@@ -91,10 +90,13 @@ final cashWalletReducers = combineReducers<CashWalletState>([
     return state.copyWith(web3: action.web3);
   }
   
-  CashWalletState _getWalletAddressSuccess(
-      CashWalletState state, GetWalletAddressSuccess action) {
+  CashWalletState _getWalletAddressesSuccess(
+      CashWalletState state, GetWalletAddressesSuccess action) {
     return state.copyWith(
-        walletAddress: action.walletAddress, walletStatus: 'created');
+        walletAddress: action.walletAddress,
+        transferManagerAddress: action.transferManagerAddress,
+        communityManagerAddress: action.communityManagerAddress,
+        walletStatus: 'created');
   }
   
   CashWalletState _createAccountWalletRequest(
@@ -102,8 +104,7 @@ final cashWalletReducers = combineReducers<CashWalletState>([
     return state.copyWith(walletStatus: 'requested');
   }
   
-  CashWalletState _createAccountWalletSuccess(
-      CashWalletState state, CreateAccountWalletSuccess action) {
+  CashWalletState _createAccountWalletSuccess(CashWalletState state, CreateAccountWalletSuccess action) {
     return state.copyWith(walletStatus: 'deploying');
   }
   
@@ -163,7 +164,9 @@ final cashWalletReducers = combineReducers<CashWalletState>([
       plugins: action.plugins,
       token: action.token,
       name: action.communityName,
-      isClosed: action.isClosed
+      isClosed: action.isClosed,
+      homeBridgeAddress: action.homeBridgeAddress,
+      foreignBridgeAddress: action.foreignBridgeAddress
     );
     Map<String, Community> newOne =
         Map<String, Community>.from(state.communities);

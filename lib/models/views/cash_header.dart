@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fusecash/models/community.dart';
 import 'package:fusecash/models/plugins.dart';
+// import 'package:fusecash/utils/addresses.dart';
 import 'package:redux/redux.dart';
 import 'package:fusecash/models/app_state.dart';
 
@@ -9,6 +10,7 @@ class CashHeaderViewModel extends Equatable {
   final Function() firstName;
   final Plugins plugins;
   final String walletStatus;
+  // final bool isCommunityMember;
 
   CashHeaderViewModel({this.community, this.firstName, this.plugins, this.walletStatus});
 
@@ -19,6 +21,7 @@ class CashHeaderViewModel extends Equatable {
       community: community,
       plugins: community?.plugins,
       walletStatus: store.state.cashWalletState.walletStatus,
+      // isCommunityMember: community.isMember && isDefaultCommunity(communityAddres),
       firstName: () {
         String fullName = store.state.userState.displayName ?? '';
         return fullName.split(' ')[0];
@@ -26,5 +29,5 @@ class CashHeaderViewModel extends Equatable {
   }
 
   @override
-  List<Object> get props => [community, plugins];
+  List<Object> get props => [community, plugins, walletStatus];
 }

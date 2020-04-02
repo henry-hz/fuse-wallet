@@ -12,11 +12,13 @@ class WebViewPageArguments {
 }
 
 class WebViewPage extends StatefulWidget {
-  WebViewPage({this.pageArg});
-  final WebViewPageArguments pageArg;
+  final WebViewPageArguments pageArgs;
+
+  WebViewPage({this.pageArgs});
 
   @override
   _WebViewPageState createState() => _WebViewPageState();
+
 }
 
 class _WebViewPageState extends State<WebViewPage> {
@@ -25,7 +27,7 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    final WebViewPageArguments webPageArgs = this.widget.pageArg;
+    final WebViewPageArguments webPageArgs = this.widget.pageArgs;
     return Scaffold(
       body: Builder(builder: (BuildContext context) {
         return Container(

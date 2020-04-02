@@ -10,8 +10,6 @@ import 'package:fusecash/models/app_state.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fusecash/utils/phone.dart';
 
-typedef OnSignUpCallback = Function(String countryCode, String phoneNumber);
-
 class SendReviewScreen extends StatefulWidget {
   final SendAmountArguments pageArgs;
   SendReviewScreen({this.pageArgs});
@@ -73,12 +71,10 @@ class _SendReviewScreenState extends State<SendReviewScreen>
   @override
   Widget build(BuildContext context) {
     final SendAmountArguments args = this.widget.pageArgs;
-
     return new StoreConnector<AppState, SendAmountViewModel>(
       converter: SendAmountViewModel.fromStore,
       builder: (_, viewModel) {
         return MainScaffold(
-            titleFontSize: 15,
             withPadding: true,
             title: I18n.of(context).review_transfer,
             children: <Widget>[
@@ -184,7 +180,7 @@ class _SendReviewScreenState extends State<SendReviewScreen>
                                     ),
                                     args.accountAddress == null ||
                                             args.accountAddress.isEmpty
-                                        ? Text('')
+                                        ? SizedBox.shrink()
                                         : Text(
                                             I18n.of(context).address +
                                                 ": ${formatAddress(args.accountAddress)}",
@@ -228,23 +224,15 @@ class _SendReviewScreenState extends State<SendReviewScreen>
                     labelFontWeight: FontWeight.normal,
                     onPressed: () {
                       send(viewModel, args, transferNoteController.text, () {
-                        Router.navigator.pushNamed(Router.sendSuccessScreen,
-                            arguments: args);
+                        Router.navigator.pushNamed(Router.sendSuccessScreen, arguments: args);
                         setState(() {
                           isPreloading = false;
                         });
-                        if (args.isBusiness != null && args.isBusiness) {
-                          viewModel.idenyifyCall(Map.from({ "Transferred ${viewModel.community.name} - business": true }));
-                          viewModel.trackTransferCall("Wallet: User Transfer - business");
-                        } else if (args.accountAddress == null || args.accountAddress == '' && args.phoneNumber != null) {
-                          viewModel.idenyifyCall(Map.from({ "Transferred ${viewModel.community.name} - contact": true }));
-                          viewModel.trackTransferCall("Wallet: User Transfer - contact");
-                        } else {
-                          viewModel.idenyifyCall(Map.from({ "Transferred ${viewModel.community.name} - address": true }));
-                          viewModel.trackTransferCall("Wallet: User Transfer - address");
-                        }
+                        String transferType = args.sendType.toString().split('.')[1].toLowerCase() ?? '';
+                        viewModel.idenyifyCall(Map.from({ "Transferred ${viewModel.community.name}": true }));
+                        viewModel.trackTransferCall("Wallet: User Transfer", properties: Map.from({ 'transfer type': transferType }));
                       }, () {
-                        print('error');
+                        // print('error');
                       });
                       setState(() {
                         isPreloading = true;

@@ -57,12 +57,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   onInit(store) {
-    if (store.state.userState.privateKey != '' &&
-        store.state.userState.jwtToken != '' &&
-        !store.state.userState.isLoggedOut) {
-      store.dispatch(initWeb3Call(store.state.userState.privateKey));
+    String privateKey = store.state.userState.privateKey;
+    String jwtToken = store.state.userState.jwtToken;
+    bool isLoggedOut = store.state.userState.isLoggedOut;
+    if (privateKey.isNotEmpty && jwtToken.isNotEmpty && !isLoggedOut) {
+      store.dispatch(getWalletAddressessCall());
       store.dispatch(identifyCall());
-      Router.navigator.pushNamedAndRemoveUntil(Router.cashHomeScreen, (Route<dynamic> route) => false);
+      Router.navigator.pushNamedAndRemoveUntil(
+          Router.cashHomeScreen, (Route<dynamic> route) => false);
     }
   }
 
