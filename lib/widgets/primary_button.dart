@@ -54,7 +54,7 @@ class PrimaryButton extends StatelessWidget {
                       label,
                       style: TextStyle(
                           color: labalColor ??
-                              Theme.of(context).textTheme.button.color,
+                              Theme.of(context).splashColor,
                           fontSize: this.fontSize ?? 18,
                           fontWeight: this.labelFontWeight ?? FontWeight.w700),
                     )

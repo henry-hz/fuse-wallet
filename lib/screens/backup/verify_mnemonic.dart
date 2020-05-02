@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_segment/flutter_segment.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/app_state.dart';
 import 'package:fusecash/models/views/backup.dart';
@@ -35,10 +36,12 @@ class _VerifyMnemonicState extends State<VerifyMnemonic> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, BackupViewModel>(
         converter: BackupViewModel.fromStore,
+        onInit: (store) {
+          Segment.screen(screenName: '/verify-mnemonic');
+        },
         builder: (_, viewModel) {
           return MainScaffold(
               withPadding: true,
-              footer: null,
               title: I18n.of(context).back_up,
               children: <Widget>[
                 Container(
@@ -72,7 +75,7 @@ class _VerifyMnemonicState extends State<VerifyMnemonic> {
                               children: <Widget>[
                                 TextFormField(
                                   autofocus: false,
-                                  style: TextStyle(color: Theme.of(context).textTheme.headline.color),
+                                  style: TextStyle(color: Theme.of(context).primaryColor),
                                   decoration: InputDecoration(
                                     labelText: I18n.of(context).word +
                                         selectedWordsNum[0].toString(),
@@ -89,7 +92,7 @@ class _VerifyMnemonicState extends State<VerifyMnemonic> {
                                 const SizedBox(height: 16.0),
                                 TextFormField(
                                   autofocus: false,
-                                  style: TextStyle(color: Theme.of(context).textTheme.headline.color),
+                                  style: TextStyle(color: Theme.of(context).primaryColor),
                                   decoration: InputDecoration(
                                     labelText: I18n.of(context).word +
                                         selectedWordsNum[1].toString(),
@@ -106,7 +109,7 @@ class _VerifyMnemonicState extends State<VerifyMnemonic> {
                                 const SizedBox(height: 16.0),
                                 TextFormField(
                                   autofocus: false,
-                                  style: TextStyle(color: Theme.of(context).textTheme.headline.color),
+                                  style: TextStyle(color: Theme.of(context).primaryColor),
                                   decoration: InputDecoration(
                                     labelText: I18n.of(context).word +
                                         selectedWordsNum[2].toString(),

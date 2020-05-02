@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_segment/flutter_segment.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,8 +8,9 @@ import 'package:fusecash/models/app_state.dart';
 import 'package:fusecash/models/community.dart';
 import 'package:fusecash/screens/cash_home/prize.dart';
 import 'package:fusecash/screens/cash_home/webview_page.dart';
-import 'package:fusecash/screens/routes.gr.dart';
+import 'package:fusecash/screens/send/send_amount.dart';
 import 'package:fusecash/screens/send/send_amount_arguments.dart';
+import 'package:fusecash/utils/addresses.dart';
 import 'package:fusecash/widgets/activate_pro_mode.dart';
 import 'package:fusecash/widgets/deposit_dai_popup.dart';
 import 'package:fusecash/widgets/main_scaffold.dart';
@@ -27,7 +27,6 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
     return MainScaffold(
         automaticallyImplyLeading: false,
         title: I18n.of(context).dai_points,
-        withPadding: false,
         children: <Widget>[
           Column(
             children: <Widget>[
@@ -92,10 +91,7 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                                   'Win up to 100 points!',
                                   style: TextStyle(
                                       fontSize: 13,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .headline
-                                          .color),
+                                      color: Theme.of(context).primaryColor),
                                 ),
                               ),
                               Row(
@@ -212,6 +208,9 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
               ),
               new StoreConnector<AppState, _DaiPointsViewModel>(
                 distinct: true,
+                onInit: (store) {
+                  Segment.screen(screenName: '/dai-explained-screen');
+                },
                 converter: _DaiPointsViewModel.fromStore,
                 builder: (_, vm) {
                   return Row(
@@ -243,13 +242,10 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                                 }
                               },
                               child: Text(
-                                'Add DAI',
+                                I18n.of(context).addDai,
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .headline
-                                        .color,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -267,11 +263,14 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                       InkWell(
                         onTap: () {
                           if (vm.isProModeActivate) {
-                            Router.navigator.pushNamed(Router.sendAmountScreen,
-                                arguments: SendAmountArguments(
-                                    sendType: SendType.FUSE_ADDRESS,
-                                    accountAddress:
-                                        vm.daiPointsHomeBridgeAddress));
+                            Navigator.push(
+                                    context,
+                                new MaterialPageRoute(
+                                    builder: (context) => SendAmountScreen(
+                                        pageArgs: SendAmountArguments(
+                                            sendType: SendType.FUSE_ADDRESS,
+                                            accountAddress: vm
+                                                .daiPointsHomeBridgeAddress))));
                           } else {
                             showDialog(
                                 context: context,
@@ -289,13 +288,10 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'Withdraw DAI',
+                                I18n.of(context).withdrawDAI,
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .headline
-                                        .color,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
@@ -319,11 +315,13 @@ class _DaiExplainedScreenState extends State<DaiExplainedScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Router.navigator.pushNamed(Router.webViewPage,
-                      arguments: WebViewPageArguments(
-                          url:
-                              'https://docs.fuse.io/the-mobile-wallet/what-is-dai-points',
-                          title: 'What is dai points?'));
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => WebViewPage(
+                              pageArgs: WebViewPageArguments(
+                                  url: 'https://docs.fuse.io/the-mobile-wallet/what-is-dai-points', title: 'What is dai points?'),
+                            )));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -361,10 +359,8 @@ class _DaiPointsViewModel {
       {this.isProModeActivate, this.daiPointsHomeBridgeAddress});
 
   static _DaiPointsViewModel fromStore(Store<AppState> store) {
-    String communityAddres =
-        DotEnv().env['DEFAULT_COMMUNITY_CONTRACT_ADDRESS'].toLowerCase();
     Community community =
-        store.state.cashWalletState.communities[communityAddres];
+        store.state.cashWalletState.communities[defaultCommunityAddress];
     return _DaiPointsViewModel(
       daiPointsHomeBridgeAddress: community.homeBridgeAddress,
       isProModeActivate: store.state.userState.isProModeActivated,

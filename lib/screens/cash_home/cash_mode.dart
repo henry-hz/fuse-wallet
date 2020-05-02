@@ -43,11 +43,28 @@ class _CashModeScaffoldState extends State<CashModeScaffold> {
     ];
   }
 
-  _onTap(int itemIndex) {
+  void _onTap(int itemIndex) {
     setState(() {
       _currentIndex = itemIndex;
     });
   }
+
+  BottomNavigationBar _bottomNavigationBar() =>
+      BottomNavigationBar(
+        onTap: _onTap,
+        selectedFontSize: 13,
+        unselectedFontSize: 13,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        backgroundColor: Theme.of(context).bottomAppBarColor,
+        showUnselectedLabels: true,
+        items: [
+          bottomBarItem(I18n.of(context).home, 'home'),
+          bottomBarItem(I18n.of(context).send_button, 'send'),
+          bottomBarItem(I18n.of(context).buy, 'buy'),
+          bottomBarItem(I18n.of(context).receive, 'receive'),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +74,7 @@ class _CashModeScaffoldState extends State<CashModeScaffold> {
           final List<Widget> pages = _pages(vm.contacts);
           return TabsScaffold(
               header: MyAppBar(
+                height: MediaQuery.of(context).size.height * .25,
                 backgroundColor: Colors.white,
                 child: CashHeader(),
               ),
@@ -64,21 +82,7 @@ class _CashModeScaffoldState extends State<CashModeScaffold> {
               pages: pages,
               currentIndex: _currentIndex,
               drawer: DrawerWidget(),
-              bottomNavigationBar: BottomNavigationBar(
-                onTap: _onTap,
-                selectedFontSize: 13,
-                unselectedFontSize: 13,
-                type: BottomNavigationBarType.fixed,
-                currentIndex: _currentIndex,
-                backgroundColor: Theme.of(context).bottomAppBarColor,
-                showUnselectedLabels: true,
-                items: [
-                  bottomBarItem(I18n.of(context).home, 'home'),
-                  bottomBarItem(I18n.of(context).send_button, 'send'),
-                  bottomBarItem(I18n.of(context).buy, 'buy'),
-                  bottomBarItem(I18n.of(context).receive, 'receive'),
-                ],
-              ));
+              bottomNavigationBar: _bottomNavigationBar());
         });
   }
 }
