@@ -1520,6 +1520,7 @@ class _I18n_it_IT extends I18n {
   @override
   String get assets_and_contracts => "Attività e contratti";
 
+  /// "Utilizza il portafoglio per inviare denaro \n agli amici senza commissioni o attriti"
   @override
   TextDirection get textDirection => TextDirection.ltr;
 }
@@ -2508,6 +2509,12 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocali
     }
     else if ("br" == languageCode) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_br_BR());
+    }
+    else if ("it" == languageCode) {
+      return SynchronousFuture<WidgetsLocalizations>(const _I18n_it_IT());
+    }
+    else if ("id" == languageCode) {
+      return SynchronousFuture<WidgetsLocalizations>(const _I18n_id_ID());
     }
     else if ("it" == languageCode) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_it_IT());

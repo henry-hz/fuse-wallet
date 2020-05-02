@@ -10,6 +10,7 @@ class CashHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, CashHeaderViewModel>(
+        distinct: true,
         converter: CashHeaderViewModel.fromStore,
         builder: (_, viewModel) {
           return Container(
