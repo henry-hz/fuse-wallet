@@ -89,7 +89,7 @@ class SignupDialogState extends State<SignupDialog>
                         onTap: () {
                           // TODO - link to privacy policy
                         },
-                        child: Text("Fuse.io/privacy",
+                        child: Text("wepy.io/privacy",
                             style: TextStyle(
                                 color: Color(0xFF0076FF),
                                 fontSize: 14,
