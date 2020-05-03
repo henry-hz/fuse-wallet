@@ -4,6 +4,8 @@ description: A new Flutter project.
 environment:
   sdk: ">=2.2.2 <3.0.0"
 dependencies:
+  logging: ^0.11.4
+  logging_appenders: ^0.4.1
   rate_my_app: ^0.6.0+2
   auto_route: ^0.3.1
   flushbar: ^1.9.1

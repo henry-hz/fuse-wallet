@@ -17,6 +17,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sentry/sentry.dart';
 import 'package:package_info/package_info.dart';
 import 'package:device_info/device_info.dart';
+import 'package:logging/logging.dart';
+import 'package:logging_appenders/logging_appenders.dart';
 
 Future<File> getFile() async {
   final directory = await getApplicationDocumentsDirectory();
@@ -127,6 +129,17 @@ class AppFactory {
           output: output
       );
 
+      // Remote logging with logz.io
+        LogzIoApiAppender(
+          apiToken: "gRsmdQjrzAxJphYmOGflmknHSXWxvimm",
+          url: "https://listener-ca.logz.io:8071/",
+          labels: {'app': 'WEPY', 'os': Platform.operatingSystem},
+          // labels: {
+          //   "version": "1.0.0", // dynamically later on
+          //   "build": "2" // dynamically later on
+          // },
+  )..attachToLogger(Logger.root);
+
       final mylogger = Logger(name);
       mylogger.onRecord
           .where((LogRecord record) => record.loggerName == mylogger.name)
@@ -146,6 +159,7 @@ class AppFactory {
             }
       });
       _loggers[name] = mylogger;
+
     }
     return _loggers[name];
   }
