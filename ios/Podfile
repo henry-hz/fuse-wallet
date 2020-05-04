@@ -65,6 +65,11 @@ target 'Runner' do
 
   # Keep pod path relative so it can be checked into Podfile.lock.
   pod 'Flutter', :path => 'Flutter'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Storage'
+
 
   # Plugin Pods
 
