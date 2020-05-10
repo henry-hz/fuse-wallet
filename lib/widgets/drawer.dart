@@ -68,23 +68,23 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         title: Padding(
           padding: EdgeInsets.only(left: 10),
           child: Row(
-            // children: <Widget>[
-            //   SvgPicture.asset(
-            //     'assets/images/top_up.svg',
-            //     width: 20,
-            //     height: 20,
-            //   ),
-            //   SizedBox(
-            //     width: 20,
-            //   ),
-            //   Text(
-            //     I18n.of(context).top_up,
-            //     style: TextStyle(
-            //         fontWeight: FontWeight.bold,
-            //         fontSize: 16,
-            //         color: Theme.of(context).primaryColor),
-            //   ),
-            // ],
+            children: <Widget>[
+              SvgPicture.asset(
+                'assets/images/top_up.svg',
+                width: 20,
+                height: 20,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                I18n.of(context).top_up,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Theme.of(context).primaryColor),
+              ),
+            ],
           ),
         ),
         onTap: () {
