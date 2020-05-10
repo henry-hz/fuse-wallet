@@ -10,6 +10,8 @@ PODS:
     - Flutter
   - device_info (0.0.1):
     - Flutter
+  - Firebase/Analytics (6.18.0):
+    - Firebase/Core
   - Firebase/Auth (6.18.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.4.3)
@@ -21,6 +23,9 @@ PODS:
   - Firebase/Messaging (6.18.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.3.0)
+  - Firebase/Storage (6.18.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.5.0)
   - firebase_auth (0.0.1):
     - Firebase/Auth (~> 6.3)
     - Firebase/Core
@@ -83,6 +88,10 @@ PODS:
     - GoogleUtilities/Reachability (~> 6.5)
     - GoogleUtilities/UserDefaults (~> 6.5)
     - Protobuf (>= 3.9.2, ~> 3.9)
+  - FirebaseStorage (3.5.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - Flutter (1.0.0)
   - flutter_branch_sdk (0.0.1):
     - Branch (~> 0.31.3)
@@ -183,6 +192,10 @@ DEPENDENCIES:
   - Branch
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
+  - Firebase/Analytics
+  - Firebase/Auth
+  - Firebase/Messaging
+  - Firebase/Storage
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_auth_web (from `.symlinks/plugins/firebase_auth_web/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -227,6 +240,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FMDB
+    - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -323,6 +337,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
   FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
   FirebaseMessaging: 4ec33842d36b3319e062e51fb8b35a74f726950d
+  FirebaseStorage: 6c5263796af3b1be82ed173598aade47535fe125
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_branch_sdk: 401d22e28b8669590a73a48619b81c6e066b503e
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
@@ -358,6 +373,6 @@ SPEC CHECKSUMS:
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
   webview_flutter: bec7599de6bfbe8008a739aa3ebd7b364ea9d0cd
 
-PODFILE CHECKSUM: 1f6cb123f6975d2d185ea5e6b1bb69d379fbd1fa
+PODFILE CHECKSUM: e717815a646c10e0f2bfbcf79ec84f51646fdf9b
 
 COCOAPODS: 1.9.1
