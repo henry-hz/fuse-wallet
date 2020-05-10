@@ -208,8 +208,8 @@ class I18n implements WidgetsLocalizations {
   String get protect_wallet => "Protect your wallet";
   /// "Backup"
   String get backup_wallet => "Backup";
-  /// "Top-up your account"
-  String get top_up => "Top-up your account";
+  /// "Buy DAI coins"
+  String get top_up => "Buy DAI coins";
   /// "Load"
   String get buy => "Load";
   /// "DAI points"
@@ -1169,9 +1169,9 @@ class _I18n_br_BR extends I18n {
   /// "criar copia de seguranca da carteira"
   @override
   String get backup_wallet => "criar copia de seguranca da carteira";
-  /// "completar"
+  /// "Compre moeda DAI"
   @override
-  String get top_up => "completar";
+  String get top_up => "Compre moeda DAI";
   /// "comprar"
   @override
   String get buy => "comprar";
@@ -1520,7 +1520,6 @@ class _I18n_it_IT extends I18n {
   @override
   String get assets_and_contracts => "Attività e contratti";
 
-  /// "Utilizza il portafoglio per inviare denaro \n agli amici senza commissioni o attriti"
   @override
   TextDirection get textDirection => TextDirection.ltr;
 }
@@ -2509,12 +2508,6 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocali
     }
     else if ("br" == languageCode) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_br_BR());
-    }
-    else if ("it" == languageCode) {
-      return SynchronousFuture<WidgetsLocalizations>(const _I18n_it_IT());
-    }
-    else if ("id" == languageCode) {
-      return SynchronousFuture<WidgetsLocalizations>(const _I18n_id_ID());
     }
     else if ("it" == languageCode) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_it_IT());
