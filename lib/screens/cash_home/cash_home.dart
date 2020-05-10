@@ -1,10 +1,9 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_segment/flutter_segment.dart';
 import 'package:fusecash/redux/actions/cash_wallet_actions.dart';
-import 'package:fusecash/redux/actions/user_actions.dart';
-import 'package:fusecash/utils/contacts.dart';
 import 'package:fusecash/models/app_state.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'cash_transactions.dart';
 import 'package:fusecash/models/views/cash_wallet.dart';
 
@@ -38,18 +37,14 @@ void onChange(CashWalletViewModel viewModel, BuildContext context) async {
 }
 
 class CashHomeScreen extends StatelessWidget {
-  onInit(store) async {
+  onInit(Store<AppState> store) async {
+    Segment.screen(screenName: '/cash-home-screen');
     String walletStatus = store.state.cashWalletState.walletStatus;
     String accountAddress = store.state.userState.accountAddress;
     if (walletStatus != 'deploying' &&
         walletStatus != 'created' &&
         accountAddress != '') {
       store.dispatch(createAccountWalletCall(accountAddress));
-    }
-    bool isPermitted = await Contacts.checkPermissions();
-    if (isPermitted) {
-      List<Contact> contacts = await ContactController.getContacts();
-      store.dispatch(syncContactsCall(contacts));
     }
   }
 

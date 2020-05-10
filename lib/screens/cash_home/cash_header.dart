@@ -1,40 +1,20 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_segment/flutter_segment.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/views/cash_header.dart';
 import 'package:fusecash/models/app_state.dart';
-// import 'package:fusecash/screens/cash_home/prize.dart';
-import 'package:fusecash/screens/routes.gr.dart';
-import 'package:fusecash/screens/send/send_amount_arguments.dart';
+import 'package:fusecash/utils/barcode.dart';
 import 'package:fusecash/utils/format.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:barcode_scan/barcode_scan.dart';
-
-scanFuseAddress() async {
-  try {
-    String accountAddress = await BarcodeScanner.scan();
-    List<String> parts = accountAddress.split(':');
-    if (parts.length == 2 && parts[0] == 'fuse') {
-      Router.navigator.pushNamed(Router.sendAmountScreen,
-          arguments: SendAmountArguments(
-              sendType: SendType.QR_ADDRESS, accountAddress: parts[1]));
-    } else {
-      print('Account address is not on Fuse');
-    }
-  } catch (e) {
-    print('ERROR - BarcodeScanner');
-  }
-}
 
 class CashHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, CashHeaderViewModel>(
+        distinct: true,
         converter: CashHeaderViewModel.fromStore,
         builder: (_, viewModel) {
           return Container(
-            height: 260.0,
+            height: MediaQuery.of(context).size.height,
             alignment: Alignment.bottomLeft,
             padding: EdgeInsets.all(20.0),
             decoration: BoxDecoration(
@@ -87,14 +67,14 @@ class CashHeader extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 33,
                                   color:
-                                      Theme.of(context).textTheme.subhead.color,
+                                      Theme.of(context).splashColor,
                                   fontWeight: FontWeight.normal)),
                           new TextSpan(
                               text: ' ' + (viewModel?.firstName() ?? ''),
                               style: TextStyle(
                                   fontSize: 33,
                                   color:
-                                      Theme.of(context).textTheme.subhead.color,
+                                      Theme.of(context).splashColor,
                                   fontWeight: FontWeight.normal)),
                         ],
                       ),
@@ -125,7 +105,9 @@ class CashHeader extends StatelessWidget {
                                 children: <Widget>[
                                   RichText(
                                     text: new TextSpan(
-                                      style: Theme.of(context).textTheme.title,
+                                      style: TextStyle(
+                                          color:
+                                              Theme.of(context).primaryColor),
                                       children: (viewModel
                                                       .community.tokenBalance ==
                                                   null ||
@@ -136,9 +118,7 @@ class CashHeader extends StatelessWidget {
                                                   style: new TextStyle(
                                                       fontSize: 30,
                                                       color: Theme.of(context)
-                                                          .textTheme
-                                                          .subhead
-                                                          .color,
+                                                          .splashColor,
                                                       fontWeight:
                                                           FontWeight.bold))
                                             ]
@@ -152,9 +132,7 @@ class CashHeader extends StatelessWidget {
                                                   style: new TextStyle(
                                                       fontSize: 32,
                                                       color: Theme.of(context)
-                                                          .textTheme
-                                                          .subhead
-                                                          .color,
+                                                          .splashColor,
                                                       fontWeight:
                                                           FontWeight.bold)),
                                               new TextSpan(
@@ -165,9 +143,7 @@ class CashHeader extends StatelessWidget {
                                                   style: new TextStyle(
                                                       fontSize: 18,
                                                       color: Theme.of(context)
-                                                          .textTheme
-                                                          .subhead
-                                                          .color,
+                                                          .splashColor,
                                                       fontWeight:
                                                           FontWeight.normal,
                                                       height: 0.0)),
@@ -212,7 +188,9 @@ class CashHeader extends StatelessWidget {
                                   color:
                                       Theme.of(context).scaffoldBackgroundColor,
                                 ),
-                                onPressed: scanFuseAddress)
+                                onPressed: () {
+                                  bracodeScannerHandler(context);
+                                })
                           ]),
                         )
                       ],

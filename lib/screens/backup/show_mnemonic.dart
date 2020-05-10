@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter_segment/flutter_segment.dart';
 import 'package:fusecash/generated/i18n.dart';
 import 'package:fusecash/models/views/backup.dart';
 import 'package:fusecash/screens/backup/verify_mnemonic.dart';
@@ -15,7 +16,6 @@ class ShowMnemonic extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainScaffold(
         withPadding: true,
-        footer: null,
         title: I18n.of(context).back_up,
         children: <Widget>[
           Container(
@@ -28,7 +28,7 @@ class ShowMnemonic extends StatelessWidget {
                   child: RichText(
                       textAlign: TextAlign.center,
                       text: new TextSpan(
-                          style: Theme.of(context).textTheme.title,
+                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
                           children: <InlineSpan>[
                             TextSpan(
                               text: I18n.of(context).important + ' ',
@@ -47,6 +47,9 @@ class ShowMnemonic extends StatelessWidget {
           ),
           new StoreConnector<AppState, BackupViewModel>(
               distinct: true,
+              onInit: (store) {
+                Segment.screen(screenName: '/show-mnemonic');
+              },
               converter: BackupViewModel.fromStore,
               builder: (_, viewModel) {
                 return (viewModel.user != null &&
@@ -145,9 +148,8 @@ class ShowMnemonic extends StatelessWidget {
                                   context,
                                   new MaterialPageRoute(
                                       builder: (context) => VerifyMnemonic()));
-                              // Router.navigator.pushNamed(Router.verifyMnemonic);
                             },
-                          ))
+                          )),
                         ],
                       )
                     : Padding(

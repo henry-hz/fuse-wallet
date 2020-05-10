@@ -10,15 +10,16 @@ class MainScaffold extends StatelessWidget {
       double titleFontSize,
       bool automaticallyImplyLeading,
       Widget footer,
+      bool withPadding,
       this.key,
-      this.withPadding,
       this.backgroundColor,
       this.expandedHeight})
       : sliverList = sliverList ?? new List<Widget>(),
         children = children ?? new List<Widget>(),
         titleFontSize = titleFontSize ?? 15,
-        footer = footer,
         automaticallyImplyLeading = automaticallyImplyLeading ?? true,
+        footer = footer ?? Container(),
+        withPadding = withPadding ?? false,
         actions = actions ?? new List<Widget>();
 
   final String title;
@@ -36,7 +37,7 @@ class MainScaffold extends StatelessWidget {
   SliverAppBar appBar(BuildContext context) {
     return SliverAppBar(
       automaticallyImplyLeading: automaticallyImplyLeading,
-      expandedHeight: expandedHeight ?? MediaQuery.of(context).size.height / 8,
+      expandedHeight: expandedHeight ?? MediaQuery.of(context).size.height / 9.5,
       pinned: true,
       actions: actions,
       flexibleSpace: FlexibleSpaceBar(
@@ -44,20 +45,20 @@ class MainScaffold extends StatelessWidget {
           child: Text(title,
               softWrap: true,
               style: TextStyle(
-                  color: Theme.of(context).textTheme.body1.color,
+                  color: Theme.of(context).primaryColor,
                   fontSize: titleFontSize,
                   fontWeight: FontWeight.w800)),
         ),
         centerTitle: true,
         collapseMode: CollapseMode.parallax,
       ),
-      iconTheme: IconThemeData(color: Theme.of(context).textTheme.body1.color),
+      iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
       backgroundColor: backgroundColor ?? Theme.of(context).backgroundColor,
       brightness: Brightness.light,
     );
   }
 
-  scrollView(BuildContext context) {
+  CustomScrollView scrollView(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         appBar(context),
@@ -79,13 +80,11 @@ class MainScaffold extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(child: scrollView(context)),
-          footer == null
-              ? Container()
-              : withPadding
-                  ? Padding(
-                      padding: EdgeInsets.only(top: 0.0, bottom: 40),
-                      child: footer)
-                  : footer
+          Padding(
+              padding: withPadding
+                  ? EdgeInsets.only(top: 0.0, bottom: 40)
+                  : EdgeInsets.all(0),
+              child: footer)
         ],
       ),
     );
