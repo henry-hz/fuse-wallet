@@ -18,8 +18,9 @@ import 'package:fusecash/redux/actions/pro_mode_wallet_actions.dart';
 import 'package:fusecash/redux/actions/user_actions.dart';
 import 'package:fusecash/utils/addresses.dart';
 import 'package:fusecash/redux/state/store.dart';
+import 'package:fusecash/utils/constans.dart';
+import 'package:fusecash/utils/firebase.dart';
 import 'package:fusecash/utils/format.dart';
-import 'package:fusecash/utils/phone.dart';
 import 'package:http/http.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
@@ -47,10 +48,11 @@ class OnboardUserSuccess {
 class GetWalletAddressesSuccess {
   final List<String> networks;
   final String walletAddress;
+  final bool backup;
   final String communityManagerAddress;
   final String transferManagerAddress;
   final String daiPointsManagerAddress;
-  GetWalletAddressesSuccess({this.networks, this.daiPointsManagerAddress,this.walletAddress, this.communityManagerAddress, this.transferManagerAddress});
+  GetWalletAddressesSuccess({this.backup, this.networks, this.daiPointsManagerAddress,this.walletAddress, this.communityManagerAddress, this.transferManagerAddress});
 }
 
 class CreateAccountWalletRequest {
@@ -251,15 +253,22 @@ ThunkAction enablePushNotifications() {
         },
       });
 
+      void switchOnPush(message) {
+        String communityAddress = communityAddressFromNotification(message);
+          if (communityAddress != null && communityAddress.isNotEmpty) {
+            store.dispatch(switchCommunityCall(communityAddress));
+          }
+      }
+
       firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
-          logger.info('onMessage called: $message');
+          switchOnPush(message);
         },
         onResume: (Map<String, dynamic> message) async {
-          logger.info('onResume called: $message');
+          switchOnPush(message);
         },
         onLaunch: (Map<String, dynamic> message) async {
-          logger.info('onLaunch called: $message');
+          switchOnPush(message);
         },
       );
     } catch (e) {
@@ -299,7 +308,7 @@ ThunkAction segmentIdentifyCall(Map<String, dynamic> traits) {
     final logger = await AppFactory().getLogger('action');
     try {
       UserState userState = store.state.userState;
-      String fullPhoneNumber = formatPhoneNumber(userState.phoneNumber, userState.countryCode);
+      String fullPhoneNumber = store.state.userState.normalizedPhoneNumber ?? '';
       logger.info('Identify - $fullPhoneNumber');
       traits = traits ?? new Map<String, dynamic>();
       DateTime installedAt = userState.installedAt;
@@ -393,7 +402,7 @@ ThunkAction startBalanceFetchingCall() {
     if (tokenAddress != null) {
       store.dispatch(getTokenBalanceCall(tokenAddress));
     }
-    new Timer.periodic(Duration(seconds: 3), (Timer t) async {
+    new Timer.periodic(Duration(seconds: intervalSeconds), (Timer t) async {
       if (store.state.cashWalletState.walletAddress == '') {
         t.cancel();
         return;
@@ -423,7 +432,7 @@ ThunkAction startTransfersFetchingCall() {
       store.dispatch(getTokenTransfersListCall(tokenAddress));
       store.dispatch(getTokenBalanceCall(tokenAddress));
     }
-    new Timer.periodic(Duration(seconds: 3), (Timer t) async {
+    new Timer.periodic(Duration(seconds: intervalSeconds), (Timer t) async {
       if (store.state.cashWalletState.walletAddress == '') {
         t.cancel();
         return;
@@ -499,12 +508,11 @@ ThunkAction generateWalletSuccessCall(dynamic walletData, String accountAddress)
             ));
           }
           store.dispatch(new GetWalletAddressesSuccess(walletAddress: walletAddress, daiPointsManagerAddress: dAIPointsManager,communityManagerAddress: communityManager, transferManagerAddress: transferManager, networks: networks));
-          String fullPhoneNumber = formatPhoneNumber(store.state.userState.phoneNumber, store.state.userState.countryCode);
           store.dispatch(segmentIdentifyCall(
               new Map<String, dynamic>.from({
                 "Wallet Generated": true,
                 "App name": 'Wepy',
-                "Phone Number": fullPhoneNumber,
+                "Phone Number": store.state.userState.normalizedPhoneNumber,
                 "Wallet Address": store.state.cashWalletState.walletAddress,
                 "Account Address": store.state.userState.accountAddress,
                 "Display Name": store.state.userState.displayName
@@ -523,10 +531,12 @@ ThunkAction getWalletAddressessCall() {
       dynamic walletData = await api.getWallet();
       List<String> networks = List<String>.from(walletData['networks']);
       String walletAddress = walletData['walletAddress'];
+      bool backup = walletData['backup'];
       String communityManagerAddress = walletData['communityManager'];
       String transferManagerAddress = walletData['transferManager'];
       String dAIPointsManagerAddress = walletData['dAIPointsManager'];
       store.dispatch(GetWalletAddressesSuccess(
+        backup: backup,
         walletAddress: walletAddress,
         daiPointsManagerAddress: dAIPointsManagerAddress,
         communityManagerAddress: communityManagerAddress,
@@ -613,7 +623,7 @@ ThunkAction startFetchingJobCall(
     String jobId, Function(Job) fetchSuccessCallback,
     {bool untilDone: true}) {
   return (Store store) async {
-    new Timer.periodic(Duration(seconds: 3), (Timer timer) async {
+    new Timer.periodic(Duration(seconds: intervalSeconds), (Timer timer) async {
       store.dispatch(fetchJobCall(jobId, fetchSuccessCallback,
           timer: timer, untilDone: untilDone));
     });
@@ -660,7 +670,7 @@ ThunkAction processingJobsCall(Timer timer) {
 
 ThunkAction startProcessingJobsCall() {
   return (Store store) async {
-    new Timer.periodic(Duration(seconds: 3), (Timer timer) async {
+    new Timer.periodic(Duration(seconds: intervalSeconds), (Timer timer) async {
       store.dispatch(processingJobsCall(timer));
     });
     store.dispatch(JobProcessingStarted());
@@ -967,14 +977,21 @@ ThunkAction joinBonusSuccessCall(txHash, transfer) {
 
 ThunkAction fetchCommunityMetadataCall(String communityURI) {
   return (Store store) async {
-    String uri = communityURI.split('://')[1];
-    dynamic metadata = await api.fetchMetadata(uri);
-    CommunityMetadata communityMetadata = new CommunityMetadata(
-      image: metadata['image'],
-      coverPhoto: metadata['coverPhoto'],
-      isDefaultImage: metadata['isDefault'] != null ? metadata['isDefault'] : false
-    );
-    store.dispatch(FetchCommunityMetadataSuccess(communityMetadata));
+    final logger = await AppFactory().getLogger('action');
+    try {
+      String uri = communityURI.split('://')[1];
+      dynamic metadata = await api.fetchMetadata(uri);
+      CommunityMetadata communityMetadata = new CommunityMetadata(
+        image: metadata['image'],
+        coverPhoto: metadata['coverPhoto'],
+        isDefaultImage: metadata['isDefault'] != null ? metadata['isDefault'] : false
+      );
+      store.dispatch(FetchCommunityMetadataSuccess(communityMetadata));
+    } catch (e, s) {
+      logger.info('ERROR - fetchCommunityMetadataCall $e');
+      await AppFactory().reportError(e, s);
+      store.dispatch(new ErrorAction('Could not fetch community metadata'));
+    }
   };
 }
 
