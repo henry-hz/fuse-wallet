@@ -8,7 +8,6 @@ import 'package:fusecash/models/app_state.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fusecash/models/views/drawer.dart';
 import 'package:fusecash/screens/backup/show_mnemonic.dart';
-import 'package:fusecash/screens/cash_home/switch_commmunity.dart';
 import 'package:fusecash/screens/cash_home/webview_page.dart';
 import 'package:fusecash/screens/misc/settings.dart';
 import 'package:fusecash/utils/forks.dart';

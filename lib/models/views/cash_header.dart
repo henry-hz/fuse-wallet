@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fusecash/models/community.dart';
-import 'package:fusecash/models/plugins.dart';
-// import 'package:fusecash/utils/addresses.dart';
+import 'package:fusecash/models/plugins/plugins.dart';
 import 'package:redux/redux.dart';
 import 'package:fusecash/models/app_state.dart';
 
@@ -10,22 +9,23 @@ class CashHeaderViewModel extends Equatable {
   final Function() firstName;
   final Plugins plugins;
   final String walletStatus;
-  // final bool isCommunityMember;
 
-  CashHeaderViewModel({this.community, this.firstName, this.plugins, this.walletStatus});
+  CashHeaderViewModel(
+      {this.community, this.firstName, this.plugins, this.walletStatus});
 
   static CashHeaderViewModel fromStore(Store<AppState> store) {
     String communityAddres = store.state.cashWalletState.communityAddress;
-    Community community = store.state.cashWalletState.communities[communityAddres] ?? new Community.initial();
+    Community community =
+        store.state.cashWalletState.communities[communityAddres] ??
+            new Community.initial();
     return CashHeaderViewModel(
-      community: community,
-      plugins: community?.plugins,
-      walletStatus: store.state.cashWalletState.walletStatus,
-      // isCommunityMember: community.isMember && isDefaultCommunity(communityAddres),
-      firstName: () {
-        String fullName = store.state.userState.displayName ?? '';
-        return fullName.split(' ')[0];
-      });
+        community: community,
+        plugins: community?.plugins,
+        walletStatus: store.state.cashWalletState.walletStatus,
+        firstName: () {
+          String fullName = store.state.userState.displayName ?? '';
+          return fullName.split(' ')[0];
+        });
   }
 
   @override
