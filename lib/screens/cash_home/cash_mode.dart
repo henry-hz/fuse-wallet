@@ -35,9 +35,7 @@ class _CashModeScaffoldState extends State<CashModeScaffold> {
     bool hasContactsInStore = contacts.isNotEmpty;
     return [
       CashHomeScreen(),
-      !hasContactsInStore
-          ? SendToContactScreen()
-          : ContactsList(contacts: contacts),
+      !hasContactsInStore ? SendToContactScreen() : ContactsList(),
       BuyScreen(),
       ReceiveScreen()
     ];
@@ -49,8 +47,7 @@ class _CashModeScaffoldState extends State<CashModeScaffold> {
     });
   }
 
-  BottomNavigationBar _bottomNavigationBar() =>
-      BottomNavigationBar(
+  BottomNavigationBar _bottomNavigationBar() => BottomNavigationBar(
         onTap: _onTap,
         selectedFontSize: 13,
         unselectedFontSize: 13,
@@ -75,7 +72,6 @@ class _CashModeScaffoldState extends State<CashModeScaffold> {
           return TabsScaffold(
               header: MyAppBar(
                 height: 230.0,
-                backgroundColor: Colors.white,
                 child: CashHeader(),
               ),
               drawerEdgeDragWidth: 0,
